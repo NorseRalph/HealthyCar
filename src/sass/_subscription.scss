@@ -1,0 +1,73 @@
+.subscription {
+  display: flex;
+  justify-content: center; // Center the cards horizontally
+  align-items: center; // Center the cards vertically
+  flex-wrap: wrap; // Allow the cards to wrap onto the next line if there isn't enough space
+  margin-top: 7%;
+  padding: 2%;
+
+  .subscription-card {
+    background-color: $background-color-dark;
+    border-radius: 2rem;
+    flex: 2; // Allow the cards to grow and shrink
+    flex-shrink: 1;
+    box-shadow: 0 0.4rem 0.8rem rgba(var(--shadow-dark));
+    padding: 2.4rem;
+    text-align: center;
+    margin: 2.4rem; // Adjust margin as needed
+    color: #fff;
+    width: 100%; // Make the width responsive
+    max-width: 38rem;
+    min-height: 50rem;
+    box-sizing: border-box; // Include padding and border in the element's total width and height
+
+    &__title {
+      margin-bottom: 1rem;
+      font-size: 4rem; // Adjust font size as needed
+      font-weight: 800;
+    }
+
+    &__description {
+      max-width: 40rem;
+      margin-bottom: 2rem;
+      font-size: 2rem; // Adjust font size as needed
+      font-weight: 800;
+    }
+
+    &__price {
+      margin-bottom: 2rem;
+      font-size: 6.4rem; // Adjust font size as needed
+      font-weight: bold;
+    }
+
+    &__button {
+      background-color: #fff;
+      color: $color-secondary;
+      font-weight: 600;
+      border: none;
+      min-width: 23rem;
+      height: 6.7rem;
+      border-radius: 4.5rem;
+      padding: 0.5rem 1rem;
+      font-size: 3.2rem; // Adjust font size as needed
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #dedede; // Light grey for hover effect
+      }
+    }
+  }
+}
+
+// Media query for smaller screens (e.g., laptops)
+@media (max-width: 1200px) {
+  .subscription {
+    flex-direction: column; // Stack the cards vertically on smaller screens
+  }
+
+  .subscription-card {
+    max-width: 80%; // Allow the card to be more fluid on smaller screens
+    min-height: initial; // Remove the fixed height on smaller screens
+  }
+}

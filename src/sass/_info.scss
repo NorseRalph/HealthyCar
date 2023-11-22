@@ -1,0 +1,118 @@
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 12.8rem;
+  margin-bottom: 3.5rem;
+
+  &__header {
+    width: 100%;
+    position: relative;
+  }
+
+  &__background-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  &__title {
+    position: absolute;
+    top: 0;
+    left: 2rem;
+    color: $color-white;
+    text-shadow: 0.2rem 0.2rem 0.4rem $color-shadow-dark;
+    font-size: 5.4rem;
+    font-weight: 400;
+  }
+
+  &__cta {
+    text-align: center;
+    font-size: 2rem;
+    margin: 1rem 0;
+    &__text {
+      color: $color-secondary;
+    }
+
+    strong {
+      color: $color-secondary; // Dark blue color for the brand name, adjust as needed
+      font-size: 4rem; // Larger font size for the brand name
+      font-weight: 800; // Bolder weight for emphasis
+      display: block; // Display as block to make it on a new line
+      margin-top: 0.5rem; // Space between the text and the brand name
+    }
+  }
+
+  &__content {
+    width: 100%;
+    min-width: 150rem;
+    margin: 0 auto; // Centers the content block
+    padding: 1rem; // Adds padding within the content block
+    box-shadow: 0 0.4rem 2rem rgba(0, 0, 0, 0.1); // Example shadow
+
+    &__section {
+      text-align: left;
+    }
+
+    h2 {
+      align-self: flex-start;
+      color: $color-secondary;
+      font-size: 2.4rem;
+      margin: 1rem 0;
+    }
+
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+      align-self: flex-start;
+      color: $color-secondary;
+    }
+
+    li {
+      font-size: $font-size-list;
+      margin-bottom: 0.5rem;
+
+      &::before {
+        content: '•';
+        color: $color-secondary;
+        margin-right: 1rem;
+        vertical-align: middle;
+      }
+    }
+   
+  }
+
+  // Responsive adjustments
+@media (max-width: $bp-large) {
+  .info {
+    &__content {
+      max-width: 60rem; // Slightly smaller max-width for large devices
+    }
+  }
+}
+
+@media (max-width: $bp-medium) {
+  .info {
+    &__content {
+      max-width: 40rem; // Slightly smaller max-width for medium devices
+    }
+  }
+}
+
+@media (max-width: $bp-small) {
+  .info {
+    &__content {
+      padding: 1rem; // Adjust padding for small devices
+      max-width: 100%; // Full width for small devices
+    }
+  }
+}
+
+  .info__intro { // Corrected nesting
+    text-align: center;
+    color: $color-secondary;
+    font-size: 2rem;
+    margin: 1rem 0;
+    max-width: 100%;
+  }
+}

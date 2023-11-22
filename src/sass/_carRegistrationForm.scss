@@ -1,0 +1,93 @@
+.car-registration {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2rem;
+  border-radius: 4.5rem;
+  background-color: $color-registration;
+  max-width: 55rem;
+  width: 100%;
+  min-height: 50rem;
+  margin: 10% auto;
+  font-family: inherit;
+  color: #fff; // Assuming you want all text in white
+
+  &__header {
+    font-size: 4rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  &__form {
+    width: 100%;
+    max-width: 50rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center; // Center form contents
+  }
+
+  &__input {
+    width: 100%;
+    max-width: 35rem; // Reduced width for centering
+    height: 3.9rem;
+    border: 1px solid #ccc; // Border added for clarity
+    outline: none;
+    font-size: 1.6rem;
+    font-family: inherit;
+    border-radius: 2rem;
+    padding: 0 1rem;
+    margin-bottom: 1.3rem;
+    background: #fff;
+    color: #000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Soft shadow for depth
+
+    &:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); // Focus ring
+    }
+  }
+
+  &__button {
+    width: auto; // Auto width to fit content
+    padding: 1rem 2rem; // Padding on both sides for a pill shape
+    border-radius: 4.5rem;
+    font-size: 1.6rem;
+    font-weight: bold;
+    background-color: $color-primary;
+    color: white;
+    cursor: pointer;
+    border: none; // Removes the border
+    transition: transform 0.3s, background-color 0.3s;
+    margin-top: 1rem; // Space from the last input
+
+    &:hover {
+      background-color: darken($color-primary, 10%);
+      transform: scale(1.05); // Enlarges the button slightly on hover
+    }
+
+    &:focus {
+      // Optional: Add a focus style if you like, for accessibility
+      outline: 3px solid darken($color-primary, 20%);
+    }
+
+    &:active {
+      transform: scale(0.95); // Slightly shrinks the button on click
+    }
+
+    // Adding a 'fancy' animation on mouse over
+    &:hover::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 4.5rem; // Maintain the rounded shape
+      box-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
+      opacity: 0;
+      transition: opacity 0.3s, box-shadow 0.3s;
+      opacity: 1; // Fade in the shadow effect
+    }
+  }
+}

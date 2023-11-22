@@ -1,0 +1,148 @@
+// login.scss
+// define a mixin for the login button style
+@mixin login-button {
+  width: 20.3rem;
+  height: 4rem;
+  border: none;
+  border-radius: 4.5rem;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: var(--color-white);
+  cursor: pointer;
+  margin-left: 4.2rem;
+}
+
+// style the login container
+.login {
+  position: absolute;
+  top: 57%;
+  left: 50%;
+  min-width: 51.9rem;
+  font-family: inherit;
+  min-height: 51.7rem;
+  border-radius: 4rem;
+  background-color: var(--color-login);
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  // use nesting to style the elements inside the login container
+  &__title {
+    font-weight: 600;
+    flex-grow: 0.1;
+    font-size: 4rem;
+    color: var(--color-white);
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  &__field {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.3rem;
+  }
+
+  &__input {
+    width: 30rem;
+    height: 3.9rem;
+    border: none;
+    outline: none;
+    font-size: 1.6rem;
+    font-family: inherit;
+    border-radius: 2rem;
+    color: inherit;
+  }
+
+  &__action {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 2rem; // create some space between the buttons
+  }
+
+  &__footer {
+    margin-top: 2rem; // create some space above the footer
+    font-size: 3rem; // set the font size of the footer
+    color: var(--color-white); // set the color of the footer
+
+    // use nesting to style the link inside the footer
+    a {
+      color: var(--color-primary); // set the color of the link
+      text-decoration: none; // remove the underline from the link
+      position: relative;
+      display: inline-block; // Allows for the transform property to be applied
+      transition: color 0.3s ease; // Transition for color change
+
+      // Create an underline effect with pseudo-element
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        width: 0;
+        height: 2px;
+        background-color: var(
+          --color-primary
+        ); // same as link color for a uniform look
+        transition: width 0.3s ease;
+      }
+
+      &:hover {
+        color: var(--color-secondary); // Change to a secondary color on hover
+        transform: scale(2.2) rotate(-5deg); // Scale up and tilt the link text
+
+        &::after {
+          width: 100%;
+        }
+      }
+
+      // Optional: Add a focus style for accessibility
+      &:focus {
+        outline: none;
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  &__button {
+    @include login-button; // use the mixin for the button style
+    transition: transform 0.3s ease, box-shadow 0.3s ease,
+      background-color 0.3s ease; // Transition for smooth effect
+    background-color: var(
+      --color-primary
+    ); // set the background color to primary color
+
+    // use nesting to style the button on hover
+    &:hover {
+      background-color: var(--color-secondary);
+      transform: translateY(-3px) scale(1.05); // Lift and scale effect
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); // Shadow for depth
+    }
+
+    &:active {
+      transform: translateY(1px); // Subtle click effect
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); // Less shadow on click
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1920px) {
+  .login {
+    top: 50%; // Adjust top position
+    min-height: auto; // Remove min-height to allow natural height
+    padding: 2rem; // Add some padding inside the container
+    transform: translate(
+      -50%,
+      -30%
+    ); // Adjust vertical translate to bring the component down
+  }
+}

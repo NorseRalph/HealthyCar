@@ -1,0 +1,38 @@
+// AddNewCarCard.scss
+.add-new-car-card {
+  background-color: $color-card;
+  width: 100%;
+  display: flex;
+  max-width: 50rem;
+  min-height: 22rem;
+  margin-top: 9%;
+  margin-left: 2%;
+  align-items: center;
+  border-radius: 4rem;
+  justify-content: center;
+  
+  // Add other styles as needed
+
+  &__icon {
+    font-size: 9.6rem; // Large size for the plus icon
+    font-weight: bold;
+    color: $color-white;
+    margin-right: 1rem; // Space between the icon and text
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1); // Increase size by 10% on hover
+    }
+
+    &:active {
+      transform: scale(0.9); // Reduce size by 10% when clicked
+    }
+  }
+
+  &__text {
+    color: $color-white;
+    font-size: 3rem;
+    font-weight: 800;
+  }
+}

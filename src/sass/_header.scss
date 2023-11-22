@@ -1,0 +1,81 @@
+.header {
+  background: linear-gradient(
+    180deg,
+    rgb(106, 142, 174) 0%,
+    rgba(106, 142, 174, 0.66) 31.85%,
+    rgba(106, 142, 174, 0.29) 69.95%,
+    rgba(106, 142, 174, 0.15) 83.21%,
+    rgba(106, 142, 174, 0.07) 91.25%,
+    rgba(106, 142, 174, 0) 100%
+  );
+  background-color: rgba(255, 255, 255, 1);
+  display: grid;
+  place-items: center;
+  height: 10rem;
+}
+
+.navbar {
+  width: 100%;
+  display: grid; // Using grid for main navbar layout
+  grid-template-columns: repeat(
+    3,
+    1fr
+  ); // Example: adjust based on the number of items
+  height: 5rem;
+  justify-content: space-between;
+  border: 1px solid var(--color-secondary);
+  margin-top: 1rem;
+  font-size: 3.2rem;
+  font-weight: 600;
+}
+
+.navbar__item {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  justify-content: center;
+  padding: 0.5rem; // Reduced padding
+  border-left: 1px solid var(--color-secondary);
+  color: var(--color-secondary);
+
+  border-left: 1px solid var(--color-secondary);
+  color: var(
+    --color-secondary
+  ); /* placeholder for text color, can be adjusted */
+
+  &:first-child {
+    border-left: none; /* removes the left border for the first item */
+  }
+
+  img {
+    margin-right: 1rem; /* spacing between icon and text */
+  }
+
+  &:hover {
+    background-color: #eaeaea; // A light grey to indicate hover
+    color: var(--color-primary); // Change text color to primary on hover
+    transform: translateY(-2px); // Slightly lift the item on hover
+
+    img {
+      // If you want to animate images as well, e.g., a slight rotation
+      transition: transform 0.3s ease;
+      transform: rotate(-4deg); // Rotate the image slightly
+    }
+  }
+
+  &:active {
+    transform: translateY(1px); // Slightly press down the item on click
+    background-color: darken(
+      #eaeaea,
+      30%
+    ); // Darken the background on click for a pressed effect
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar__item {
+    padding: 0.5rem 1rem; // Adjust padding for smaller screens
+    font-size: 2.4rem; // Smaller font size for better fit
+  }
+}

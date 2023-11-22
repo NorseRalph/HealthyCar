@@ -1,0 +1,57 @@
+.my-profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  margin: 10% auto;
+  font-weight: inherit;
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: $color-card;
+    max-width: 60rem;
+    width: 100%;
+    max-height: 40rem;
+    border-radius: 2rem;
+    padding: 4rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  &__image-wrapper {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+  }
+
+  &__details {
+    width: 100%;
+  }
+
+  &__detail {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    padding-left: 6rem;
+    padding-right: 6rem;
+    color: white;
+
+    &-label {
+      font-weight: bold;
+    }
+
+    &-value {
+      font-weight: normal;
+    }
+  }
+}

@@ -1,0 +1,103 @@
+.register {
+  display: flex;
+  margin: 0 auto;
+  max-width: 111rem;
+  border-radius: 4.5rem;
+  margin-top: 7%; // Center the component in the viewport
+  align-items: center; // Vertically center the content
+  justify-content: center; // Horizontally center the content
+  background-color: var(--color-login);
+  font-family: inherit;
+
+  &__photo {
+    border-top-left-radius: 4rem; // Match the border radius
+    border-bottom-left-radius: 4rem; // Match the border radius
+  }
+
+  &__title {
+    font-family: inherit;
+    font-weight: 600;
+    flex-grow: 0.1;
+    font-size: 4rem;
+    color: var(--color-white);
+  }
+
+  &__form {
+    flex-grow: 1; // Allow the form container to grow
+    display: flex;
+    flex-direction: column;
+    align-items: center; // Center form items horizontally
+    justify-content: center; // Center form items vertically
+    padding: 4rem; // Padding inside the form wrapper
+    border-top-right-radius: 4rem; // Match the border radius
+    border-bottom-right-radius: 4rem; // Match the border radius
+    gap: 2rem;
+  }
+
+  &__input {
+    width: 40rem;
+    height: 3.9rem;
+    border: none;
+    outline: none;
+    font-size: 1.6rem;
+    font-family: inherit;
+    border-radius: 2rem;
+    padding: 0 1rem; // Padding inside input for text
+    margin-bottom: 1.3rem; // Space after each input field
+  }
+
+  &__button {
+    width: 20.3rem;
+    height: 4rem;
+    border: none;
+    border-radius: 4.5rem;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: var(--color-white);
+    cursor: pointer;
+    justify-content: center;
+    background-color: var(--color-primary);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; // Add this line
+
+    &:hover {
+      transform: translateY(-3px); // Move the button up slightly on hover
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); // Add a shadow to lift effect
+      background-color: var(--color-secondary);
+    }
+
+    &:active {
+      transform: translateY(-1px); // Move the button down slightly when clicked
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); // Smaller shadow for clicked state
+    }
+  }
+}
+
+// Media query for 15.6-inch screens (common resolution 1920x1080)
+@media only screen and (max-width: 1920px) {
+  .register {
+    margin-top: 9%; // Smaller margin-top to avoid overlapping with the header
+    margin-bottom: 3%;
+    max-width: 90rem; // Reduce max-width for smaller screens
+
+    &__form {
+      padding: 2rem; // Reduce padding inside the form
+      gap: 1.5rem; // Reduce gap between form items
+    }
+
+    &__input {
+      width: 100%; // Make input width responsive
+      max-width: 35rem; // Reduce max-width for inputs
+      padding: 0 1rem; // Adjust padding
+    }
+
+    &__button {
+      width: 100%; // Make button width responsive
+      max-width: 20rem; // Reduce max-width for the button
+      margin: 0; // Reset any specific margins
+    }
+
+    &__title {
+      font-size: 3rem; // Smaller font size for the title
+    }
+  }
+}

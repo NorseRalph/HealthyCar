@@ -1,0 +1,73 @@
+.Faq {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 100rem;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-grey-light-1);
+    border-radius: .5rem;
+    box-shadow: var(--shadow-light);
+    
+    .faq-container {
+      width: 100%;
+      gap: 1rem;
+    }
+  
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: var(--color-primary);
+      text-align: center;
+    }
+  
+    .faq-question {
+      width: 100%; // Ensure full width
+      display: grid;
+      grid-template-columns: 1fr auto; // Question text and arrow icon/element
+      align-items: center;
+      border-bottom: var(--line);
+      padding: 1.5rem 2rem;
+      transition: background-color 0.3s;
+      cursor: pointer;
+  
+      &:last-child {
+        border-bottom: none;
+      }
+  
+      &:hover {
+        background-color: var(--color-grey-light-3);
+      }
+  
+      h2 {
+        font-size: 1.8rem;
+        color: var(--color-secondary);
+        flex: 1; // Allows the question text to fill the space
+      }
+  
+      .faq-icon {
+        font-size: 2rem;
+        line-height: 1;
+        // No need for margin-left as justify-content: space-between takes care of spacing
+      }
+  
+      p {
+        width: 100%; // Ensure full width
+        margin-top: 1rem;
+        font-size: 1.6rem;
+        color: var(--color-grey-dark-3);
+        display: none; // Initially hide the answer
+      }
+  
+      &.active p {
+        display: block; // Show the answer when the question is active
+      }
+    }
+  }
+  
+  
+  
