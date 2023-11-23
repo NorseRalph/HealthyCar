@@ -7,4 +7,7 @@
   margin: 8% auto;
   max-width: 30%; // Adjust as needed
   // For smaller screens, you might want to adjust the grid layout
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr; // One column for smaller screens
+  }
 }

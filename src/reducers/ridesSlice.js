@@ -24,7 +24,7 @@ const initialState = {
     {
       // Ride 2 data
       speed: [15, 25, 35, 45, 55],
-      rpm: [1100, 2100, 1600, 2600, 3100],
+      //rpm: [1100, 2100, 1600, 2600, 3100],
       fuelConsumption: [5.5, 6.5, 6, 7, 7.5],
       airTemperature: [21, 22, 20, 23, 21],
       engineTemperature: [92, 97, 95, 102, 107],
