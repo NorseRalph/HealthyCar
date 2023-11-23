@@ -1,8 +1,10 @@
 .UserCarChart {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); // Three equal columns
+  grid-gap: 1rem; // Space between the charts
   justify-content: center;
   align-items: center;
-  margin: 10% auto;
-  max-width: 80%;
-  flex-direction: column;
+  margin: 8% auto;
+  max-width: 30%; // Adjust as needed
+  // For smaller screens, you might want to adjust the grid layout
 }
