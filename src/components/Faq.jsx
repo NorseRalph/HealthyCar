@@ -13,8 +13,8 @@ const Faq = () => {
   const faqs = [
     { question: "How do I sign up?", answer: "You can sign up by clicking the Register link on the homepage." },
     { question: "What services do you offer?", answer: "We offer a variety of services including..." },
-    { question: "How do I sign up?", answer: "You can sign up by clicking the Register link on the homepage." },
-    { question: "What services do you offer?", answer: "We offer a variety of services including..." },
+    { question: "Can I add multiple cars to my account?", answer: "Yes, HealthyCar allows you to add and manage multiple cars within a single account. Fleet managers can add and monitor an entire fleet from a centralized platform." },
+    { question: "Is the platform secure?", answer: "Yes, HealthyCar prioritizes the security of your data. We use industry-standard encryption and security measures to safeguard your information." },
     // ... more FAQs
   ];
 

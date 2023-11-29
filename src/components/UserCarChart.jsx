@@ -35,11 +35,31 @@ const UserCarChart = () => {
     chartsRef.current = {};
 
     // Create line charts for each attribute
-    createLineChart("speedChart", "Speed", currentRide.speed, "rgb(75, 192, 192)");
+    createLineChart(
+      "speedChart",
+      "Speed",
+      currentRide.speed,
+      "rgb(75, 192, 192)"
+    );
     createLineChart("rpmChart", "RPM", currentRide.rpm, "rgb(192, 75, 75)");
-    createLineChart("fuelChart", "Fuel Consumption", currentRide.fuelConsumption, "rgb(75, 75, 192)");
-    createLineChart("airTempChart", "Air Temperature", currentRide.airTemperature, "rgb(192, 192, 75)");
-    createLineChart("engineTempChart", "Engine Temperature", currentRide.engineTemperature, "rgb(75, 192, 75)");
+    createLineChart(
+      "fuelChart",
+      "Fuel Consumption",
+      currentRide.fuelConsumption,
+      "rgb(75, 75, 192)"
+    );
+    createLineChart(
+      "airTempChart",
+      "Air Temperature",
+      currentRide.airTemperature,
+      "rgb(192, 192, 75)"
+    );
+    createLineChart(
+      "engineTempChart",
+      "Engine Temperature",
+      currentRide.engineTemperature,
+      "rgb(75, 192, 75)"
+    );
 
     // Cleanup function
     return () => {
