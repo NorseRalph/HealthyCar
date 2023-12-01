@@ -125,6 +125,7 @@ const carSlice = createSlice({
       })
       .addCase(fetchFirstRide.fulfilled, (state, action) => {
         state.status = "succeeded";
+        // Make sure to set the firstRide state correctly
         state.firstRide = action.payload;
       })
       .addCase(fetchFirstRide.rejected, (state, action) => {

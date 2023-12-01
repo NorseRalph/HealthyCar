@@ -4,10 +4,11 @@ import { Chart, registerables } from "chart.js";
 import "chart.js/auto";
 import LoadingComponent from "./LoadingComponent";
 import { fetchFirstRide } from "../reducers/carSlice";
+import store from "../store/store";
 
 const UserCarChart = () => {
   const dispatch = useDispatch();
-  const firstRideData = useSelector((state) => state.car.firstRide);
+  const firstRideData = useSelector((state) => state.cars.firstRide);
   const chartsRef = useRef({});
 
   useEffect(() => {
@@ -15,6 +16,7 @@ const UserCarChart = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    console.log('Redux State:', store.getState());
     if (firstRideData) {
       Chart.register(...registerables);
 
@@ -66,8 +68,9 @@ const UserCarChart = () => {
         "rgb(75, 192, 75)"
       );
 
+      const currentChartsRef = chartsRef.current;
       return () => {
-        Object.values(chartsRef.current).forEach((chart) => chart?.destroy());
+        Object.values(currentChartsRef).forEach((chart) => chart?.destroy());
       };
     }
   }, [firstRideData]);
