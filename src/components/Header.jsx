@@ -34,14 +34,14 @@ const Header = () => {
             <NavLink
               to="/my-cars"
               className="navbar__item"
-              activeClassName="active">
+              activeclassname="active">
               <img src={carIcon} alt="My Cars Icon" />
               My Cars
             </NavLink>
             <NavLink
               to="/my-profile"
               className="navbar__item"
-              activeClassName="active">
+              activeclassname="active">
               <img src={profileIcon} alt="My Profile Icon" />
               My Profile
             </NavLink>
@@ -53,21 +53,21 @@ const Header = () => {
         ) : (
           // Non-logged-in user view
           <>
-            <NavLink to="/" className="navbar__item" activeClassName="active">
+            <NavLink to="/" className="navbar__item" activeclassname="active">
               <img src={homeIcon} alt="Home Icon" />
               Home
             </NavLink>
             <NavLink
               to="/subscription"
               className="navbar__item"
-              activeClassName="active">
+              activeclassname="active">
               <img src={profileIcon} alt="Subscription Icon" />
               Subscription
             </NavLink>
             <NavLink
               to="/login"
               className="navbar__item"
-              activeClassName="active">
+              activeclassname="active">
               <img src={loginIcon} alt="Login Icon" />
               Login
             </NavLink>

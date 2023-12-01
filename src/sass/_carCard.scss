@@ -1,0 +1,58 @@
+.car-card {
+  background-color: $color-card;
+  width: 100%;
+  margin: 5% 2%;
+  display: flex;
+  flex-direction: row; // Change to row for horizontal layout
+  align-items: center; // Vertically center items
+  justify-content: start; // Align items to the start of the container
+  max-width: 50rem;
+  min-height: 22rem;
+  border-radius: 4rem;
+  color: $color-white;
+  font-size: 1.6rem;
+  font-weight: 600;
+  padding: 2rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+  // Icon for adding more information or redirect
+  &__icon {
+    font-size: 9.6rem;
+    color: $color-white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    margin-right: 2rem; // Add margin to the right of the icon
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+
+  // Style for car details (Text Container)
+  &__details {
+    display: flex;
+    flex-direction: column; // Arrange details vertically
+    align-items: flex-start; // Align text to the start (left)
+    text-align: left;
+    width: calc(
+      100% - 12rem
+    ); // Adjust width to account for the icon width and margin
+
+    &--make,
+    &--model,
+    &--year,
+    &--vin {
+      margin: 0.5rem 0;
+    }
+  }
+
+  &__name {
+    font-size: 2.4rem;
+    margin-bottom: 1rem;
+  }
+}

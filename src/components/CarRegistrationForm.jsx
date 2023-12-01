@@ -1,7 +1,7 @@
 // CarRegistrationForm.js
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addCar } from "../actions/carActions.js"; // Replace with your actual action
+import { addCarAction } from "../actions/carActions.js"; // Replace with your actual action
 
 const CarRegistrationForm = () => {
   const [manufacturer, setManufacturer] = useState("");
@@ -14,7 +14,7 @@ const CarRegistrationForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Dispatch an action to add the car to the store or send it to the backend
-    dispatch(addCar({ manufacturer, model, year, displayName, vin }));
+    dispatch(addCarAction({ manufacturer, model, year, displayName, vin }));
     // Additional logic to handle after form submission, like clearing the form or showing a success message
   };
 

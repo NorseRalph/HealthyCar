@@ -1,25 +1,26 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux"; // Make sure to import useDispatch
-import { userLogin } from "../reducers/userReducer"; // Updated import
-import { Link, useNavigate } from "react-router-dom"; // import the Link and useNavigate components from react-router-dom
-import "../sass/main.scss";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import '../sass/main.scss';
+import { loginUserAction } from '../reducers/userReducer';
+
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // use the useNavigate hook to get the navigate function
+  const navigate = useNavigate();
+  const { userData, loading, error } = useSelector(state => state.user);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const actionResult = await dispatch(userLogin({ username, password }));
-      const userData = actionResult.payload;
-      localStorage.setItem("userInfo", JSON.stringify(userData));
-      navigate("/my-cars"); // Redirect to My Cars after login
-    } catch (error) {
-      console.error("Failed to login:", error);
-    }
+    dispatch(loginUserAction())
+      .unwrap()
+      .then(() => {
+        console.log("Logged in successfully with user ID:", userData.userId);
+        navigate("/"); // Navigate to home page after login
+      })
+      .catch((error) => {
+        console.error("Login failed:", error);
+      });
   };
 
   return (
@@ -27,21 +28,13 @@ const Login = () => {
       <h1 className="login__title">Log In</h1>
       <form className="login__form" onSubmit={handleSubmit}>
         <div className="login__field">
-          <input
-            type="text"
-            className="login__input"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
+          <input type="text" className="login__input" placeholder="Username" />
         </div>
         <div className="login__field">
           <input
             type="password"
             className="login__input"
             placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <div className="login__action">
@@ -51,13 +44,10 @@ const Login = () => {
         </div>
       </form>
       <footer className="login__footer">
-        {" "}
-        {/* add a footer element with a className */}
         <p>
-          If you don't have an account please{" "}
+          If you don't have an account, please{" "}
           <Link to="/register">register</Link> here.
-        </p>{" "}
-        {/* add the text and the Link component */}
+        </p>
       </footer>
     </div>
   );
