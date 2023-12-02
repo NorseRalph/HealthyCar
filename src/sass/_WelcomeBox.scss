@@ -1,0 +1,41 @@
+.welcome-box {
+  display: flex;
+  background-color: $background-color-dark;
+  min-height: 40rem;
+  margin-top: 10%;
+  flex-direction: column;
+  font-family: inherit;
+  padding: 2rem;
+  width: 80%;
+  margin-left: 10%;
+  font-weight: 600;
+  border-radius: 2rem;
+  color: $color-white;
+
+  &__title {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+  }
+
+  &__message {
+    font-size: 2rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+
+  &__list {
+    padding-left: 3%;
+    list-style-position: inside;
+    margin-bottom: 1rem;
+    font-size: 3rem;
+  }
+
+  &__list-item {
+    margin-bottom: 0.5rem;
+  }
+
+  &__footer {
+    font-size: 2.3rem;
+    margin-top: 1rem; /* Added to separate from the list */
+  }
+}

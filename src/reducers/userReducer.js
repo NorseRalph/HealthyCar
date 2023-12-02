@@ -1,80 +1,107 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
-// Async thunk for logging in a user
-export const userLogin = createAsyncThunk(
-  'user/login',
-  async (credentials, thunkAPI) => {
+export const loginUserAction = createAsyncThunk(
+  "user/login",
+  async (loginData, { rejectWithValue }) => {
     try {
-      const response = await axios.post('/api/users/login', credentials);
-      // Save the logged-in user's information to localStorage or handle the token logic here
-      // localStorage.setItem('userInfo', JSON.stringify(response.data));
+      const response = await axios.post(
+        "http://localhost:8080/login",
+        loginData
+      );
+      // Assuming the response contains an object with the user's info and token
+      const { userId, token } = response.data;
+ 
+      // Save the token and userId to localStorage
+      localStorage.setItem("token", token); //?
+      localStorage.setItem("userId", userId);
+      // Save userId to cookies
+      document.cookie = `userId=${userId}; path=/; max-age=86400;`; // Expires after 1 day
+      // Return the response data to save it in the Redux store
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      if (error.response) {
+        // Handle a response error status code
+        return rejectWithValue(error.response.data);
+      } else {
+        // Handle errors like network issues
+        return rejectWithValue(error.message);
+      }
     }
   }
 );
 
-// Async thunk for registering a user
-export const register = createAsyncThunk(
-  'user/register',
-  async ({ username, email, password }, thunkAPI) => {
+// Register action
+export const registerUserAction = createAsyncThunk(
+  "user/register",
+  async (user, { rejectWithValue }) => {
     try {
-      const response = await axios.post('/api/users/register', {
-        username,
-        email,
-        password,
+      // Update URL if needed to match your backend
+      const response = await axios.post("/register", user, {
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
-      // Save the registered user's information to localStorage or handle the token logic here
-      // localStorage.setItem('userInfo', JSON.stringify(response.data));
-      return response.data;
+      // Handle token as per backend response
+      localStorage.setItem("token", response.data.token);
+      return response.data.user;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data);
     }
   }
 );
 
-// Slice for user operations
+// Logout action
+export const logoutAction = createAsyncThunk(
+  "user/logout",
+  async (_, { rejectWithValue }) => {
+    try {
+      // Add axios call to backend logout endpoint if it exists
+      // Example: await axios.post('/logout');
+      localStorage.removeItem("token");
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+// User slice
 const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState: {
     userData: null,
     loading: false,
     error: null,
   },
-  reducers: {
-    // You can add reducers here for other synchronous user operations
-    logout(state) {
-      state.userData = null;
-      // Remove user info from localStorage or clean up session/token
-      // localStorage.removeItem('userInfo');
-    },
-  },
   extraReducers: {
-    // Handle pending, fulfilled, and rejected states of userLogin
-    [userLogin.pending]: (state) => {
+    [loginUserAction.pending]: (state) => {
       state.loading = true;
     },
-    [userLogin.fulfilled]: (state, action) => {
-      state.loading = false;
+    [loginUserAction.fulfilled]: (state, action) => {
       state.userData = action.payload;
-    },
-    [userLogin.rejected]: (state, action) => {
       state.loading = false;
-      state.error = action.payload;
+      state.error = null;
     },
-    // Handle pending, fulfilled, and rejected states of register
-    [register.pending]: (state) => {
+    [loginUserAction.rejected]: (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+      state.userData = null;
+    },
+    [logoutAction.fulfilled]: (state) => {
+      state.userData = null;
+    },
+    [registerUserAction.pending]: (state) => {
       state.loading = true;
     },
-    [register.fulfilled]: (state, action) => {
-      state.loading = false;
+    [registerUserAction.fulfilled]: (state, action) => {
       state.userData = action.payload;
-    },
-    [register.rejected]: (state, action) => {
       state.loading = false;
+      state.error = null;
+    },
+    [registerUserAction.rejected]: (state, action) => {
       state.error = action.payload;
+      state.loading = false;
+      state.userData = null;
     },
   },
 });

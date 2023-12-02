@@ -55,6 +55,14 @@
 
       &:hover {
         background-color: #dedede; // Light grey for hover effect
+        animation: bounce 0.6s ease infinite; // Apply the bounce animation when hovered
+      }
+
+      &:active {
+        transform: scale(
+          0.95
+        ); // Slightly decrease the size of the button when clicked
+        animation: none; // Stop the animation when the button is clicked
       }
     }
   }
