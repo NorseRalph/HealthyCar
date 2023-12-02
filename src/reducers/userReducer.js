@@ -1,12 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import baseUrl from "../components/baseUrl";
 
 export const loginUserAction = createAsyncThunk(
   "user/login",
   async (loginData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/login",
+        `${baseUrl}/login`,
         loginData
       );
       // Assuming the response contains an object with the user's info and token
