@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import baseUrl from "../components/baseUrl";
 
 // Async thunk to add a new car
 export const addCar = createAsyncThunk(
   "cars/addCar",
   async (carData, { rejectWithValue }) => {
     try {
-      const response = await fetch("http://localhost:8080/cars", {
+      const response = await fetch(`${baseUrl}/cars`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -31,7 +32,7 @@ export const fetchUserCarsByOwnerId = createAsyncThunk(
     try {
       // Correctly use the ownerId in the URL
       const response = await fetch(
-        `http://localhost:8080/cars/owner/${ownerId}`
+        `${baseUrl}/cars/owner/${ownerId}`
       );
 
       if (!response.ok) {
@@ -50,7 +51,7 @@ export const fetchFirstRide = createAsyncThunk(
   "rides/fetchFirstRide",
   async (carId, { rejectWithValue }) => {
     try {
-      const response = await fetch(`http://localhost:8080/rides/car/${carId}`);
+      const response = await fetch(`${baseUrl}/rides/car/${carId}`);
 
       if (!response.ok) {
         throw new Error("Server responded with an error!");

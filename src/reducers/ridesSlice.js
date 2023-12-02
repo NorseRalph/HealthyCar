@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
+import baseUrl from "../components/baseUrl";
+// We now pass carId as an argument to the thunk
 // We now pass carId as an argument to the thunk
 export const fetchRides = createAsyncThunk(
   "rides/fetchRides",
@@ -12,8 +13,8 @@ export const fetchRides = createAsyncThunk(
     }
 
     try {
-      // Make sure to include the carId in the request
-      const response = await fetch(`http://localhost:8080/rides/car/${carId}`);
+      // Use the base URL in the request
+      const response = await fetch(`${baseUrl}/rides/car/${carId}`);
       if (!response.ok) {
         throw new Error("Network response was not ok.");
       }
