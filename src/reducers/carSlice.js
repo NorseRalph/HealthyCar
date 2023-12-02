@@ -29,10 +29,13 @@ export const fetchUserCarsByOwnerId = createAsyncThunk(
   "cars/fetchUserCarsByOwnerId",
   async (ownerId, { rejectWithValue }) => {
     try {
-      const response = await fetch(`http://localhost:8080/cars/owner/ownerId`);
+      // Correctly use the ownerId in the URL
+      const response = await fetch(
+        `http://localhost:8080/cars/owner/${ownerId}`
+      );
 
       if (!response.ok) {
-        throw new Error("Server responded with an error!");
+        throw new Error(`Server responded with an error: ${response.status}`);
       }
 
       const userCars = await response.json();
@@ -45,9 +48,9 @@ export const fetchUserCarsByOwnerId = createAsyncThunk(
 
 export const fetchFirstRide = createAsyncThunk(
   "rides/fetchFirstRide",
-  async (_, { rejectWithValue }) => {
+  async (carId, { rejectWithValue }) => {
     try {
-      const response = await fetch("http://localhost:8080/rides/car/carId");
+      const response = await fetch(`http://localhost:8080/rides/car/${carId}`);
 
       if (!response.ok) {
         throw new Error("Server responded with an error!");
