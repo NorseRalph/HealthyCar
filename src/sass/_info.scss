@@ -18,8 +18,8 @@
 
   &__title {
     position: absolute;
-    top: 0;
-    left: 2rem;
+    top: 3rem;
+    left: 10rem;
     color: $color-white;
     text-shadow: 0.2rem 0.2rem 0.4rem $color-shadow-dark;
     font-size: 5.4rem;
@@ -44,11 +44,13 @@
   }
 
   &__content {
-    width: 100%;
+    // width: 100%;
     min-width: 150rem;
     margin: 0 auto; // Centers the content block
+    margin-right: 100px;
+    margin-left: 100px;
     padding: 1rem; // Adds padding within the content block
-    box-shadow: 0 0.4rem 2rem rgba(0, 0, 0, 0.1); // Example shadow
+    // box-shadow: 0 0.4rem 2rem rgba(0, 0, 0, 0.1); // Example shadow
 
     &__section {
       text-align: left;
