@@ -13,6 +13,7 @@ import Faq from "./components/Faq";
 import MyCars from "./components/MyCars";
 import Subscription from "./components/Subscription";
 import UserCarChart from "./components/UserCarChart";
+import WelcomeBox from "./components/WelcomeBox";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -28,6 +29,8 @@ root.render(
             <Route path="/my-profile" element={<MyProfile />} />
             <Route path="/add-car" element={<CarRegistrationForm />} />
             <Route path="/user-car-chart" element={<UserCarChart />} />
+            <Route path="/subscription" element={<Subscription />} />
+            <Route path="welcomeBox" element={<WelcomeBox />} />
           </Route>
         </Routes>
       </BrowserRouter>

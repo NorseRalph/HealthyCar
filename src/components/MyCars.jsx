@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import AddNewCarCard from "../components/AddNewCarCard.jsx";
 import CarCard from "./CarCard.jsx";
 import { fetchUserCarsByOwnerId } from "../reducers/carSlice.js"; // Adjust the import path as necessary
+import LoadingComponent from "./LoadingComponent.jsx";
 
 const MyCars = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const MyCars = () => {
   return (
     <div className="MyCars">
       <AddNewCarCard onClick={handleAddNewCarClick} />
-      {status === "loading" && <p>Loading cars...</p>}
+      {status === "loading" && <LoadingComponent />}
       {error && <p>Error loading cars: {error}</p>}
       {status === "succeeded" &&
         Array.isArray(cars) &&

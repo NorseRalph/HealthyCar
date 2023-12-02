@@ -10,7 +10,7 @@ const MyProfile = () => {
         </div>
         <div className="my-profile__details">
           <div className="my-profile__detail">
-            <span className="my-profile__detail-label">Username</span>
+            <span className="my-profile__detail-label">Name:</span>
             <span className="my-profile__detail-value">Mark1234</span>
           </div>
           <div className="my-profile__detail">

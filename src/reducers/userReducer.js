@@ -11,9 +11,9 @@ export const loginUserAction = createAsyncThunk(
       );
       // Assuming the response contains an object with the user's info and token
       const { userId, token } = response.data;
-
+ 
       // Save the token and userId to localStorage
-      localStorage.setItem("token", token);
+      localStorage.setItem("token", token); //?
       localStorage.setItem("userId", userId);
       // Save userId to cookies
       document.cookie = `userId=${userId}; path=/; max-age=86400;`; // Expires after 1 day
