@@ -22,7 +22,7 @@ const App = () => {
         "/my-cars",
         "/my-profile",
         "/add-car",
-        "/user-car-chart",
+        "/user-car-chart/:carId",
         "/welcomeBox",
       ].includes(location.pathname)
     );

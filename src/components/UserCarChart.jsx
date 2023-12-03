@@ -5,7 +5,7 @@ import "chart.js/auto";
 import LoadingComponent from "./LoadingComponent";
 import { fetchFirstRide } from "../reducers/carSlice";
 import store from "../store/store";
-import { useParams } from "react-router-dom"; // Import useParams
+import { useNavigate, useParams } from "react-router-dom"; // Import useParams
 
 const UserCarChart = () => {
   const dispatch = useDispatch();

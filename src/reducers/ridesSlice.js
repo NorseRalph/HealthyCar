@@ -14,7 +14,7 @@ export const fetchRides = createAsyncThunk(
 
     try {
       // Use the base URL in the request
-      const response = await fetch(`${baseUrl}/rides/car/${carId}`);
+      const response = await fetch(`${baseUrl}rides/car/${carId}`);
       if (!response.ok) {
         throw new Error("Network response was not ok.");
       }

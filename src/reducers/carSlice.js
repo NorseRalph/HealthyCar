@@ -68,7 +68,7 @@ export const fetchFirstRide = createAsyncThunk(
   "rides/fetchFirstRide",
   async (carId, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${baseUrl}/rides/car/${carId}`);
+      const response = await fetch(`${baseUrl}rides/car/${carId}`);
 
       if (!response.ok) {
         throw new Error("Server responded with an error!");

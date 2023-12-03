@@ -4,11 +4,13 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { addCar } from "../reducers/carSlice";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const CarRegistrationForm = () => {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.user.userData)
   const userId = localStorage.getItem("userId"); 
+  const navigate = useNavigate();
 
   console.log(userId);
 
@@ -48,6 +50,7 @@ const CarRegistrationForm = () => {
       console.log(values); // Add this line to debug
       dispatch(addCar(values));
       // Additional logic after submission
+      navigate("/my-cars");
   }
   });
 
