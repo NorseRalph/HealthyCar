@@ -25,7 +25,7 @@ export const addCar = createAsyncThunk(
             // "Authorization": `Bearer ${yourAuthToken}`,
           },
         }
-      );
+      ); 
 
       // No need to check for response.ok as axios will throw an error if the status is not 2xx
       return response.data; // Return the response data from the API
