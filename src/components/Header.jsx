@@ -8,7 +8,7 @@ import carIcon from "../icons/car.svg";
 import React from "react";
 import logoutIcon from "../icons/account_logout_.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../reducers/userReducer";
+import { logoutAction } from "../reducers/userReducer";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -17,11 +17,14 @@ const Header = () => {
   const user = useSelector((state) => state.user.userData); // Assuming user data is in state.user.userData
 
   // define a handler function for home button
-
-  const handleLogout = () => {
-    dispatch(logout());
-    localStorage.removeItem("userInfo"); // Clear user info from local storage
-    navigate("/login"); // Redirect to the login page
+  const handleLogout = async () => {
+    try {
+      await dispatch(logoutAction()).unwrap(); // Use the logoutAction thunk
+      navigate("/"); // Redirect to the home page after successful logout
+    } catch (error) {
+      // Handle the error in case the logout fails
+      console.error("Logout failed", error);
+    }
   };
 
   return (

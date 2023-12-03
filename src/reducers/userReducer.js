@@ -76,16 +76,30 @@ export const registerUserAction = createAsyncThunk(
   }
 );
 
-// Logout action
 export const logoutAction = createAsyncThunk(
   "user/logout",
   async (_, { rejectWithValue }) => {
     try {
-      // Add axios call to backend logout endpoint if it exists
-      // Example: await axios.post('/logout');
+      // Perform backend logout if necessary
+      // Example: await axios.post(`${baseUrl}/users/logout`);
+
+      // Remove token and user ID from localStorage
       localStorage.removeItem("token");
+      localStorage.removeItem("userId");
+
+      // Clear the cookie by setting its expiry date to the past
+      document.cookie =
+        "userId=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; Secure; HttpOnly";
+
+      // Return any necessary data or simply resolve the action
+      return true;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      // Handle any errors during the logout process
+      if (error.response) {
+        return rejectWithValue(error.response.data);
+      } else {
+        return rejectWithValue("An error occurred during logout");
+      }
     }
   }
 );

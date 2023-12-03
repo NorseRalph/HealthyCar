@@ -1,28 +1,41 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import baseUrl from "../components/baseUrl";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 // Async thunk to add a new car
 export const addCar = createAsyncThunk(
   "cars/addCar",
-  async (carData, { rejectWithValue }) => {
+  async (carData, { rejectWithValue, getState }) => {
     try {
-      const response = await fetch(`${baseUrl}/cars`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          // Include other headers if needed, like authorization tokens
-        },
-        body: JSON.stringify(carData),
-      });
+      // You may need to get the ownerId from the state if it's stored there
+      const { userId } = getState().user; // Adjust this to where the user information is stored in your state
 
-      if (!response.ok) {
-        throw new Error("Server responded with an error!");
-      }
+      // Add ownerId to the carData before sending it to the API
+      const completeCarData = { ...carData, ownerId: userId };
 
-      return await response.json();
+      // Use the correct endpoint as per your API specification in Postman
+      const response = await axios.post(
+        `${baseUrl}/cars/add`,
+        completeCarData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            // Include the Authorization header if your API requires it
+            // "Authorization": `Bearer ${yourAuthToken}`,
+          },
+        }
+      );
+
+      // No need to check for response.ok as axios will throw an error if the status is not 2xx
+      return response.data; // Return the response data from the API
     } catch (error) {
-      return rejectWithValue(error.message);
+      if (error.response) {
+        // Reject with the error message or error response data
+        return rejectWithValue(error.response.data);
+      } else {
+        // Reject with a generic error message or the error object
+        return rejectWithValue("An error occurred while adding the car");
+      }
     }
   }
 );

@@ -1,63 +1,107 @@
-// CarRegistrationForm.js
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
-import { addCarAction } from "../actions/carActions.js"; // Replace with your actual action
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { addCarAction } from "../actions/carActions"; // Replace with your actual action
 
 const CarRegistrationForm = () => {
-  const [manufacturer, setManufacturer] = useState("");
-  const [model, setModel] = useState("");
-  const [year, setYear] = useState("");
-  const [displayName, setDisplayName] = useState("");
-  const [vin, setVin] = useState("");
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Dispatch an action to add the car to the store or send it to the backend
-    dispatch(addCarAction({ manufacturer, model, year, displayName, vin }));
-    // Additional logic to handle after form submission, like clearing the form or showing a success message
-  };
+  // Form validation schema using Yup
+  const carSchema = Yup.object({
+    manufacturer: Yup.string().required("Manufacturer is required"),
+    model: Yup.string().required("Model is required"),
+    year: Yup.number()
+      .required("Year is required")
+      .min(1900)
+      .max(new Date().getFullYear()),
+    displayName: Yup.string().required("Display Name is required"),
+    vin: Yup.string().required("VIN is required"),
+  });
+
+  // useFormik hook
+  const formik = useFormik({
+    initialValues: {
+      manufacturer: "",
+      model: "",
+      year: "",
+      displayName: "",
+      vin: "",
+    },
+    validationSchema: carSchema,
+    onSubmit: (values) => {
+      dispatch(addCarAction(values));
+      // Additional logic after submission, like redirecting
+    },
+  });
 
   return (
     <div className="car-registration">
       <h1 className="car-registration__header">Add Car</h1>
-      <form className="car-registration__form" onSubmit={handleSubmit}>
+      <form className="car-registration__form" onSubmit={formik.handleSubmit}>
         <input
           type="text"
           className="car-registration__input"
-          value={manufacturer}
-          onChange={(e) => setManufacturer(e.target.value)}
+          name="manufacturer"
           placeholder="Manufacturer"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.manufacturer}
         />
+        {formik.touched.manufacturer && formik.errors.manufacturer && (
+          <div className="error">{formik.errors.manufacturer}</div>
+        )}
         <input
           type="text"
           className="car-registration__input"
-          value={model}
-          onChange={(e) => setModel(e.target.value)}
+          name="model"
           placeholder="Model"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.model}
         />
+        {formik.touched.model && formik.errors.model && (
+          <div className="error">{formik.errors.model}</div>
+        )}
         <input
           type="text"
           className="car-registration__input"
-          value={year}
-          onChange={(e) => setYear(e.target.value)}
+          name="year"
           placeholder="Year"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.year}
         />
+        {formik.touched.year && formik.errors.year && (
+          <div className="error">{formik.errors.year}</div>
+        )}
         <input
           type="text"
           className="car-registration__input"
-          value={displayName}
-          onChange={(e) => setDisplayName(e.target.value)}
+          name="displayName"
           placeholder="Display Name"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.displayName}
         />
+        {formik.touched.displayName && formik.errors.displayName && (
+          <div className="error">{formik.errors.displayName}</div>
+        )}
         <input
           type="text"
           className="car-registration__input"
-          value={vin}
-          onChange={(e) => setVin(e.target.value)}
+          name="vin"
           placeholder="VIN"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.vin}
         />
-        <button className="car-registration__button" type="submit">Create</button>
+        {formik.touched.vin && formik.errors.vin && (
+          <div className="error">{formik.errors.vin}</div>
+        )}
+        <button className="car-registration__button" type="submit">
+          Register Car
+        </button>
       </form>
     </div>
   );

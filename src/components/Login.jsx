@@ -1,14 +1,13 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import '../sass/main.scss';
-import { loginUserAction } from '../reducers/userReducer';
-
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import "../sass/main.scss";
+import { loginUserAction } from "../reducers/userReducer";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { userData, loading, error } = useSelector(state => state.user);
+  const { userData, loading, error } = useSelector((state) => state.user);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,10 +18,10 @@ const Login = () => {
       .unwrap()
       .then(() => {
         console.log("Logged in successfully with user ID:", userData.userId);
-        navigate('/'); // Navigate to home page after login
+        navigate("/my-profile"); // Navigate to home page after login
       })
       .catch((loginError) => {
-        console.error('Login failed:', loginError);
+        console.error("Login failed:", loginError);
       });
   };
 
@@ -58,7 +57,10 @@ const Login = () => {
       <footer className="login__footer">
         <p>
           If you don't have an account, please register{" "}
-          <Link className="link" to="/register">here</Link>.
+          <Link className="link" to="/register">
+            here
+          </Link>
+          .
         </p>
       </footer>
     </div>
