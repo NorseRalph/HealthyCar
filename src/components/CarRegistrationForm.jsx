@@ -15,8 +15,14 @@ const CarRegistrationForm = () => {
       .required("Year is required")
       .min(1900)
       .max(new Date().getFullYear()),
-    displayName: Yup.string().required("Display Name is required"),
-    vin: Yup.string().required("VIN is required"),
+    displayName: Yup.string().required("Display name is required"),
+    vin: Yup.string()
+      .matches(
+        /^[0-9A-Z]+$/,
+        "VIN must consist of numbers and uppercase letters only"
+      )
+      .length(17, "VIN must be exactly 17 characters")
+      .required("VIN is required"),
   });
 
   // useFormik hook
@@ -24,7 +30,7 @@ const CarRegistrationForm = () => {
     initialValues: {
       manufacturer: "",
       model: "",
-      year: "",
+      year: 0,
       displayName: "",
       vin: "",
     },
