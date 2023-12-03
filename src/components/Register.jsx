@@ -10,7 +10,7 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate(); // Hook to navigate to other routes
   const location = useLocation();
-  const { isFleetOwner } = location.state || { isFleetOwner: "no" };
+  const { isFleetOwner } = location.state || { isFleetOwner: false};
 
   // Form validation schema
   const formSchema = Yup.object({
@@ -40,10 +40,11 @@ const Register = () => {
         try {
           await dispatch(
             registerUserAction({
-              username: values.username,
+              firstName: values.firstName,
+              lastName: values.lastName,
               email: values.email,
               password: values.password,
-              isFleetOwner: isFleetOwner === "yes",
+              isFleetOwner: isFleetOwner === true, // This should match the boolean type expected by your backend
             })
           ).unwrap();
           navigate("/welcomeBox");
