@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import baseUrl from "../components/baseUrl";
+import Cookies from 'js-cookie';
 
 // Async thunk to add a new car
 export const addCar = createAsyncThunk(
@@ -28,12 +29,15 @@ export const addCar = createAsyncThunk(
 
 export const fetchUserCarsByOwnerId = createAsyncThunk(
   "cars/fetchUserCarsByOwnerId",
-  async (ownerId, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
-      // Correctly use the ownerId in the URL
-      const response = await fetch(
-        `${baseUrl}/cars/owner/${ownerId}`
-      );
+      // Get the user ID from cookies
+      const ownerId = Cookies.get("userId");
+      if (!ownerId) {
+        throw new Error("No owner ID found in cookies");
+      }
+
+      const response = await fetch(`${baseUrl}/cars/owner/${ownerId}`);
 
       if (!response.ok) {
         throw new Error(`Server responded with an error: ${response.status}`);

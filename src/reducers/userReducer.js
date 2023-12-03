@@ -6,7 +6,7 @@ export const loginUserAction = createAsyncThunk(
   'user/login',
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${baseUrl}users/login`, { email, password });
+      const response = await axios.post(`${baseUrl}/users/login`, { email, password });
       const { id, token } = response.data; // Adjust these fields based on what your backend actually returns
 
       // Save the token and userId to localStorage or any other persistent storage you prefer
@@ -37,7 +37,7 @@ export const registerUserAction = createAsyncThunk(
   async (user, { rejectWithValue }) => {
     try {
       // Update URL if needed to match your backend
-      const response = await axios.post(`${baseUrl}users/add`, {
+      const response = await axios.post(`${baseUrl}/users/add`, {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
