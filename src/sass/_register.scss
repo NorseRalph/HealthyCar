@@ -3,15 +3,22 @@
   margin: 0 auto;
   max-width: 111rem;
   border-radius: 4.5rem;
-  margin-top: 7%; // Center the component in the viewport
+  margin-top: 3%; // Center the component in the viewport
   align-items: center; // Vertically center the content
   justify-content: center; // Horizontally center the content
   background-color: var(--color-login);
   font-family: inherit;
+  height: fit-content;
+
+  &__photo-wrapper {
+    height: fit-content;
+    margin-bottom: -0.35%;
+  }
 
   &__photo {
-    border-top-left-radius: 4rem; // Match the border radius
-    border-bottom-left-radius: 4rem; // Match the border radius
+    border-top-left-radius: 4.5rem; // Match the border radius
+    border-bottom-left-radius: 4.5rem; // Match the border radius
+    height: 100%;
   }
 
   &__title {
@@ -42,7 +49,7 @@
     font-size: 1.6rem;
     font-family: inherit;
     border-radius: 2rem;
-    padding: 0 1rem; // Padding inside input for text
+    padding: 2% 5% 2%; // Padding inside input for text
     margin-bottom: 1.3rem; // Space after each input field
   }
 
@@ -75,8 +82,8 @@
 // Media query for 15.6-inch screens (common resolution 1920x1080)
 @media only screen and (max-width: 1920px) {
   .register {
-    margin-top: 9%; // Smaller margin-top to avoid overlapping with the header
-    margin-bottom: 3%;
+    margin-top: 3%; // Smaller margin-top to avoid overlapping with the header
+    margin-bottom: 5%;
     max-width: 90rem; // Reduce max-width for smaller screens
 
     &__form {
@@ -87,7 +94,7 @@
     &__input {
       width: 100%; // Make input width responsive
       max-width: 35rem; // Reduce max-width for inputs
-      padding: 0 1rem; // Adjust padding
+      padding: 2% 5% 2%; // Adjust padding
     }
 
     &__button {

@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  margin-top: 12.8rem;
-  margin-bottom: 3.5rem;
+  margin-top: 0rem;
+  margin-bottom: 10rem;
 
   &__header {
     width: 100%;
@@ -23,7 +23,7 @@
     color: $color-white;
     text-shadow: 0.2rem 0.2rem 0.4rem $color-shadow-dark;
     font-size: 5.4rem;
-    font-weight: 400;
+    font-weight: 600;
   }
 
   &__cta {
@@ -47,8 +47,8 @@
     // width: 100%;
     min-width: 150rem;
     margin: 0 auto; // Centers the content block
-    margin-right: 100px;
-    margin-left: 100px;
+    margin-right: 150px;
+    margin-left: 150px;
     padding: 1rem; // Adds padding within the content block
     // box-shadow: 0 0.4rem 2rem rgba(0, 0, 0, 0.1); // Example shadow
 

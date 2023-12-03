@@ -1,16 +1,16 @@
 .welcome-box {
   display: flex;
   background-color: $background-color-dark;
-  min-height: 40rem;
-  margin-top: 10%;
+  margin-top: 3%;
   flex-direction: column;
   font-family: inherit;
-  padding: 2rem;
-  width: 80%;
+  padding: 4rem;
+  width: fit-content;
   margin-left: 10%;
   font-weight: 600;
   border-radius: 2rem;
   color: $color-white;
+  height: fit-content;
 
   &__title {
     font-size: 3rem;

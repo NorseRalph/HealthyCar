@@ -58,7 +58,7 @@
     font-family: inherit;
     border-radius: 2rem;
     color: inherit;
-    padding: 2%
+    padding: 2% 5% 2%;
   }
 
   &__action {
@@ -74,10 +74,11 @@
     color: var(--color-white); // set the color of the footer
 
     // use nesting to style the link inside the footer
-    a {
+    .link {
       color: var(--color-primary); // set the color of the link
       text-decoration: none; // remove the underline from the link
       position: relative;
+      font-size: 2rem;
       display: inline-block; // Allows for the transform property to be applied
       transition: color 0.3s ease; // Transition for color change
 
@@ -97,7 +98,7 @@
 
       &:hover {
         color: var(--color-secondary); // Change to a secondary color on hover
-        transform: scale(2.2) rotate(-5deg); // Scale up and tilt the link text
+        transform: scale(2.2); // Scale up and tilt the link text
 
         &::after {
           width: 100%;

@@ -10,7 +10,7 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate(); // Hook to navigate to other routes
   const location = useLocation();
-  const { isFleetOwner } = location.state || { isFleetOwner: "no" };
+  const { isFleetOwner } = location.state || { isFleetOwner: false }; // Default to false i
 
   // Form validation schema
   const formSchema = Yup.object({
