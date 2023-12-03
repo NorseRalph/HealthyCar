@@ -12,14 +12,17 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginUserAction())
+    const email = e.target.elements.email.value;
+    const password = e.target.elements.password.value;
+
+    dispatch(loginUserAction({ email, password }))
       .unwrap()
       .then(() => {
         console.log("Logged in successfully with user ID:", userData.userId);
-        navigate("/"); // Navigate to home page after login
+        navigate('/'); // Navigate to home page after login
       })
-      .catch((error) => {
-        console.error("Login failed:", error);
+      .catch((loginError) => {
+        console.error('Login failed:', loginError);
       });
   };
 
@@ -28,13 +31,21 @@ const Login = () => {
       <h1 className="login__title">Log In</h1>
       <form className="login__form" onSubmit={handleSubmit}>
         <div className="login__field">
-          <input type="text" className="login__input" placeholder="Email" />
+          <input
+            type="text"
+            name="email"
+            className="login__input"
+            placeholder="Email"
+            required // Ensuring the input is not empty
+          />
         </div>
         <div className="login__field">
           <input
             type="password"
+            name="password"
             className="login__input"
             placeholder="Password"
+            required // Ensuring the input is not empty
           />
         </div>
         <div className="login__action">
@@ -42,11 +53,16 @@ const Login = () => {
             Log In
           </button>
         </div>
+        {error && <p className="login__error">{error}</p>}
       </form>
       <footer className="login__footer">
         <p>
+<<<<<<< HEAD
           If you don't have an account, please register{" "}
           <Link className="link" to="/register">here</Link>.
+=======
+          If you don't have an account, please <Link to="/register">register</Link> here.
+>>>>>>> 13933a022281398815093d13dd3083dbfbe71687
         </p>
       </footer>
     </div>

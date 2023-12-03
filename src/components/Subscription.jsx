@@ -19,7 +19,7 @@ const Subscription = () => {
   const handleBuyClick = (isFleetOwner) => {
     console.log(`Is Fleet Owner: ${isFleetOwner}`);
     navigate("/register", {
-      state: { isFleetOwner: isFleetOwner ? "yes" : "no" },
+      state: {isFleetOwner},
     });
   };
 

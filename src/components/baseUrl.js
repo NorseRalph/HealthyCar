@@ -1,3 +1,3 @@
 // baseUrl.js or wherever you define it
-const baseUrl = "https://localhost:8080/";
+const baseUrl = "http://localhost:8080/";
 export default baseUrl;
