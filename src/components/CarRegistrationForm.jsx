@@ -29,7 +29,7 @@ const CarRegistrationForm = () => {
   // useFormik hook
   const formik = useFormik({
     initialValues: {
-      ownerId: userData.userId,
+      ownerId: userData,
       make: "",
       model: "",
       year: 0,
