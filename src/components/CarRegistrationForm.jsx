@@ -8,8 +8,14 @@ import Cookies from "js-cookie";
 const CarRegistrationForm = () => {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.user.userData)
+  const userId = localStorage.getItem("userId"); 
+
+  console.log(userId);
+
+
   // Form validation schema using Yup
   const carSchema = Yup.object({
+    ownerId: "",
     make: Yup.string().required("make is required"),
     model: Yup.string().required("Model is required"),
     year: Yup.number()
@@ -27,9 +33,10 @@ const CarRegistrationForm = () => {
   });
 
   // useFormik hook
+  // useFormik hook
   const formik = useFormik({
     initialValues: {
-      ownerId: userData,
+      ownerId: userId,
       make: "",
       model: "",
       year: 0,
@@ -38,15 +45,21 @@ const CarRegistrationForm = () => {
     },
     validationSchema: carSchema,
     onSubmit: (values) => {
+      console.log(values); // Add this line to debug
       dispatch(addCar(values));
-      // Additional logic after submission, like redirecting
-    },
+      // Additional logic after submission
+  }
   });
 
   return (
     <div className="car-registration">
       <h1 className="car-registration__header">Add Car</h1>
       <form className="car-registration__form" onSubmit={formik.handleSubmit}>
+      <input
+        type="hidden"
+        name="ownerId"
+        value={userId}
+      />
         <input
           type="text"
           className="car-registration__input"

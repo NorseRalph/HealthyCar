@@ -14,13 +14,13 @@ export const loginUserAction = createAsyncThunk(
 
       // Save the token and userId to localStorage or any other persistent storage you prefer
       localStorage.setItem("token", token);
-      localStorage.setItem("userId", id);
+      localStorage.setItem("userId", id)
 
       // Optionally save userId to cookies if needed
       document.cookie = `userId=${id}; path=/; max-age=86400;`; // Expires after 1 day
 
       // Return the full user data
-      return { id, token, userData };
+      return { id, token, userData: { ...userData, userId: id } }; // Add the userId property to the userData object
     } catch (error) {
       if (error.response) {
         // Handle a response error status code
@@ -32,6 +32,7 @@ export const loginUserAction = createAsyncThunk(
     }
   }
 );
+
 
 
 export const registerUserAction = createAsyncThunk(
@@ -118,7 +119,7 @@ const userSlice = createSlice({
       state.loading = true;
     },
     [loginUserAction.fulfilled]: (state, action) => {
-      state.userData = action.payload;
+      state.userData = action.payload.userData;
       state.loading = false;
       state.error = null;
     },
@@ -149,3 +150,7 @@ const userSlice = createSlice({
 // Export actions and reducer
 export const { logout } = userSlice.actions;
 export default userSlice.reducer;
+
+
+
+

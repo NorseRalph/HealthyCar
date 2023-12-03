@@ -9,7 +9,7 @@ export const addCar = createAsyncThunk(
   async (carData, { rejectWithValue }) => {
     try {
       // You may need to get the ownerId from the state if it's stored there
-      const { userId } = Cookies.get("userId"); // Adjust this to where the user information is stored in your state
+      const userId = localStorage.getItem("userId"); 
 
       // Add ownerId to the carData before sending it to the API
       const completeCarData = { ...carData, ownerId: userId };
