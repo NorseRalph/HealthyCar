@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 // Async thunk to add a new car
 export const addCar = createAsyncThunk(
   "cars/addCar",
-  async (carData, { rejectWithValue, getState }) => {
+  async (carData, { rejectWithValue }) => {
     try {
       // You may need to get the ownerId from the state if it's stored there
       const { userId } = Cookies.get("userId"); // Adjust this to where the user information is stored in your state
