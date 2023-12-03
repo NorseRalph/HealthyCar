@@ -27,6 +27,7 @@ export const addCar = createAsyncThunk(
   }
 );
 
+// Async thunk to fetch cars by the owner's ID using the ID from cookies
 export const fetchUserCarsByOwnerId = createAsyncThunk(
   "cars/fetchUserCarsByOwnerId",
   async (_, { rejectWithValue }) => {

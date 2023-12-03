@@ -3,22 +3,25 @@
   justify-content: center; // Center the cards horizontally
   align-items: center; // Center the cards vertically
   flex-wrap: wrap; // Allow the cards to wrap onto the next line if there isn't enough space
-  margin-top: 7%;
-  padding: 2%;
+  margin-top: 3%;
+  padding: 0%;
 
   .subscription-card {
     background-color: $background-color-dark;
     border-radius: 2rem;
     flex: 2; // Allow the cards to grow and shrink
     flex-shrink: 1;
+    flex-direction: column;
     box-shadow: 0 0.4rem 0.8rem rgba(var(--shadow-dark));
-    padding: 2.4rem;
+    padding: 0rem;
     text-align: center;
-    margin: 2.4rem; // Adjust margin as needed
+    margin-left: 10rem; // Adjust margin as needed
+    margin-right: 10rem;
     color: #fff;
     width: 100%; // Make the width responsive
     max-width: 38rem;
     min-height: 50rem;
+    align-items: center;
     box-sizing: border-box; // Include padding and border in the element's total width and height
 
     &__title {
