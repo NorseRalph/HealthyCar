@@ -9,13 +9,15 @@ export const addCar = createAsyncThunk(
   async (carData, { rejectWithValue }) => {
     try {
       // You may need to get the ownerId from the state if it's stored there
-      const userId = localStorage.getItem("userId"); 
+      const userId = localStorage.getItem("userId");
 
       // Add ownerId to the carData before sending it to the API
       const completeCarData = { ...carData, ownerId: userId };
 
       // Use the correct endpoint as per your API specification in Postman
-      const response = await axios.post(`http://localhost:8080/cars/add`, completeCarData,
+      const response = await axios.post(
+        `http://localhost:8080/cars/add`,
+        completeCarData,
         {
           headers: {
             "Content-Type": "application/json",
@@ -64,11 +66,11 @@ export const fetchUserCarsByOwnerId = createAsyncThunk(
   }
 );
 
-export const fetchFirstRide = createAsyncThunk(
-  "rides/fetchFirstRide",
+export const fetchAllRideData = createAsyncThunk(
+  "rides/fetchAllRideData",
   async (carId, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${baseUrl}rides/car/${carId}`);
+      const response = await fetch(`${baseUrl}/rides/car/${carId}`);
 
       if (!response.ok) {
         throw new Error("Server responded with an error!");
@@ -76,31 +78,29 @@ export const fetchFirstRide = createAsyncThunk(
 
       const rides = await response.json();
 
-      // Assuming rides is an array of ride objects
-      if (rides.length > 0) {
-        const firstRide = rides[0];
-
-        // Map the readings of the first ride for the chart
-        return {
-          time: firstRide.readings.map((_, index) => `Reading ${index + 1}`),
-          speed: firstRide.readings.map((reading) => reading.speed),
-          rpm: firstRide.readings.map((reading) => reading.rpm),
-
-          fuelConsumption: firstRide.readings.map(
-            (reading) => reading.fuelConsumption
-          ),
-          airTemperature: firstRide.readings.map(
-            (reading) => reading.airTemperature
-          ),
-          engineTemperature: firstRide.readings.map(
-            (reading) => reading.engineTemperature
-          ),
-        };
+      // If there are no rides, return early
+      if (rides.length === 0) {
+        return rejectWithValue("No rides found for this car");
       }
 
-      return null; // Return null if no rides are found
+      // Map all rides to their respective reading data
+      const mappedRides = rides.map((ride) => ({
+        id: ride.id,
+        date: ride.date, // Assuming date is an array [yyyy, mm, dd, HH, MM, ss]
+        readings: ride.readings.map((reading, index) => ({
+          time: `Reading ${index + 1}`,
+          speed: reading.speed,
+          rpm: reading.rpm,
+          fuelConsumption: reading.fuelConsumption,
+          airTemperature: reading.airTemperature,
+          engineTemperature: reading.engineTemperature,
+        })),
+      }));
+
+      return mappedRides;
     } catch (error) {
-      return rejectWithValue(error.message);
+      console.error("Fetch all ride data failed", error);
+      return rejectWithValue(error.message || "Unknown server error");
     }
   }
 );

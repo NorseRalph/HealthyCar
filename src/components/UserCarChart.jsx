@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Chart, registerables } from "chart.js";
 import "chart.js/auto";
 import LoadingComponent from "./LoadingComponent";
-import { fetchFirstRide } from "../reducers/carSlice";
+import { fetchAllRideData } from "../reducers/carSlice";
 import store from "../store/store";
 import { useNavigate, useParams } from "react-router-dom"; // Import useParams
 
@@ -15,7 +15,7 @@ const UserCarChart = () => {
 
   useEffect(() => {
     if (carId) {
-      dispatch(fetchFirstRide(carId)); // Pass the carId to the fetchFirstRide action
+      dispatch(fetchAllRideData(carId)); // Pass the carId to the fetchAllRideData action
     }
   }, [dispatch, carId]); // Add carId as a dependency
 
@@ -82,7 +82,7 @@ const UserCarChart = () => {
   if (!firstRideData) {
     return <LoadingComponent />;
   }
-  
+
   return (
     <div className="UserCarChart">
       <canvas id="speedChart" aria-label="Speed Chart"></canvas>
