@@ -6,11 +6,11 @@ export const loginUserAction = createAsyncThunk(
   "user/login",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${baseUrl}/users/login`, {
+      const response = await axios.post(`${baseUrl}users/login`, {
         email,
         password,
       });
-      const { id, token } = response.data; // Adjust these fields based on what your backend actually returns
+      const { id, token, userData } = response.data; // Adjust these fields based on what your backend actually returns
 
       // Save the token and userId to localStorage or any other persistent storage you prefer
       localStorage.setItem("token", token);
@@ -20,7 +20,7 @@ export const loginUserAction = createAsyncThunk(
       document.cookie = `userId=${id}; path=/; max-age=86400;`; // Expires after 1 day
 
       // Return the full user data
-      return response.data;
+      return { id, token, userData };
     } catch (error) {
       if (error.response) {
         // Handle a response error status code
@@ -32,6 +32,7 @@ export const loginUserAction = createAsyncThunk(
     }
   }
 );
+
 
 export const registerUserAction = createAsyncThunk(
   "user/register",

@@ -9,21 +9,21 @@ const Login = () => {
   const navigate = useNavigate();
  const { userData, loading, error } = useSelector((state) => state.user);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const email = e.target.elements.email.value;
     const password = e.target.elements.password.value;
 
-    dispatch(loginUserAction({ email, password }))
-      .unwrap()
-      .then(() => {
-        console.log("Logged in successfully with user ID:", userData.userId);
-        navigate("/my-profile"); // Navigate to home page after login
-      })
-      .catch((loginError) => {
-        console.error("Login failed:", loginError);
-      });
+    try {
+      const userData = await dispatch(loginUserAction({ email, password })).unwrap();
+      console.log("Logged in successfully with user ID:", userData);
+      navigate("/my-profile"); // Navigate to home page after login
+    } catch (loginError) {
+      console.log('Bi sikler yanlis: ', userData);
+      console.error("Login failed:", loginError);
+    }
   };
+
 
   return (
     <div className="login">

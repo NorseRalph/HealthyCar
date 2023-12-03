@@ -1,21 +1,22 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { addCar } from "../actions/carActions"; // Replace with your actual action
+import { addCar } from "../reducers/carSlice";
+import Cookies from "js-cookie";
 
 const CarRegistrationForm = () => {
   const dispatch = useDispatch();
-
+  const userData = useSelector((state) => state.user.userData)
   // Form validation schema using Yup
   const carSchema = Yup.object({
-    manufacturer: Yup.string().required("Manufacturer is required"),
+    make: Yup.string().required("make is required"),
     model: Yup.string().required("Model is required"),
     year: Yup.number()
       .required("Year is required")
       .min(1900)
       .max(new Date().getFullYear()),
-    displayName: Yup.string().required("Display name is required"),
+    name: Yup.string().required("Display name is required"),
     vin: Yup.string()
       .matches(
         /^[0-9A-Z]+$/,
@@ -28,11 +29,11 @@ const CarRegistrationForm = () => {
   // useFormik hook
   const formik = useFormik({
     initialValues: {
-      
-      manufacturer: "",
+      ownerId: userData.userId,
+      make: "",
       model: "",
       year: 0,
-      displayName: "",
+      name: "",
       vin: "",
     },
     validationSchema: carSchema,
@@ -49,14 +50,14 @@ const CarRegistrationForm = () => {
         <input
           type="text"
           className="car-registration__input"
-          name="manufacturer"
-          placeholder="Manufacturer"
+          name="make"
+          placeholder="make"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          value={formik.values.manufacturer}
+          value={formik.values.make}
         />
-        {formik.touched.manufacturer && formik.errors.manufacturer && (
-          <div className="error">{formik.errors.manufacturer}</div>
+        {formik.touched.make && formik.errors.make && (
+          <div className="error">{formik.errors.make}</div>
         )}
         <input
           type="text"
@@ -85,14 +86,14 @@ const CarRegistrationForm = () => {
         <input
           type="text"
           className="car-registration__input"
-          name="displayName"
+          name="name"
           placeholder="Display Name"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          value={formik.values.displayName}
+          value={formik.values.name}
         />
-        {formik.touched.displayName && formik.errors.displayName && (
-          <div className="error">{formik.errors.displayName}</div>
+        {formik.touched.name && formik.errors.name && (
+          <div className="error">{formik.errors.name}</div>
         )}
         <input
           type="text"
