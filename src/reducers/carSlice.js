@@ -70,7 +70,7 @@ export const fetchAllRideData = createAsyncThunk(
   "rides/fetchAllRideData",
   async (carId, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${baseUrl}/rides/car/${carId}`);
+      const response = await fetch(`${baseUrl}rides/car/${carId}`);
 
       if (!response.ok) {
         throw new Error("Server responded with an error!");
@@ -141,15 +141,15 @@ const carSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message;
       })
-      .addCase(fetchFirstRide.pending, (state) => {
+      .addCase(fetchAllRideData.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(fetchFirstRide.fulfilled, (state, action) => {
+      .addCase(fetchAllRideData.fulfilled, (state, action) => {
         state.status = "succeeded";
         // Make sure to set the firstRide state correctly
-        state.firstRide = action.payload;
+        state.fetchAllRideData = action.payload;
       })
-      .addCase(fetchFirstRide.rejected, (state, action) => {
+      .addCase(fetchAllRideData.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });

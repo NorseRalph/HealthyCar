@@ -10,7 +10,7 @@ import { useNavigate, useParams } from "react-router-dom"; // Import useParams
 const UserCarChart = () => {
   const dispatch = useDispatch();
   const { carId } = useParams();
-  const firstRideData = useSelector((state) => state.cars.firstRide);
+  const firstRideData = useSelector((state) => state.cars.fetchAllRideData);
   const chartsRef = useRef({});
 
   useEffect(() => {
