@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import baseUrl from "../components/baseUrl";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 // Async thunk to add a new car
 export const addCar = createAsyncThunk(
@@ -14,9 +15,7 @@ export const addCar = createAsyncThunk(
       const completeCarData = { ...carData, ownerId: userId };
 
       // Use the correct endpoint as per your API specification in Postman
-      const response = await axios.post(
-        `${baseUrl}/cars/add`,
-        completeCarData,
+      const response = await axios.post(`http://localhost:8080/cars/add`, completeCarData,
         {
           headers: {
             "Content-Type": "application/json",
@@ -51,7 +50,7 @@ export const fetchUserCarsByOwnerId = createAsyncThunk(
         throw new Error("No owner ID found in cookies");
       }
 
-      const response = await fetch(`${baseUrl}/cars/owner/${ownerId}`);
+      const response = await fetch(`${baseUrl}cars/owner/${ownerId}`);
 
       if (!response.ok) {
         throw new Error(`Server responded with an error: ${response.status}`);
