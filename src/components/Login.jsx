@@ -7,7 +7,7 @@ import { loginUserAction } from "../reducers/userReducer";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { userData, loading, error } = useSelector((state) => state.user);
+ const { userData, loading, error } = useSelector((state) => state.user);
 
   const handleSubmit = (e) => {
     e.preventDefault();

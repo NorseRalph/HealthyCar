@@ -28,6 +28,7 @@ const CarRegistrationForm = () => {
   // useFormik hook
   const formik = useFormik({
     initialValues: {
+      
       manufacturer: "",
       model: "",
       year: 0,
