@@ -28,7 +28,7 @@ root.render(
             <Route path="/my-cars" element={<MyCars />} />
             <Route path="/my-profile" element={<MyProfile />} />
             <Route path="/add-car" element={<CarRegistrationForm />} />
-            <Route path="/user-car-chart" element={<UserCarChart />} />
+            <Route path="/user-car-chart/:carId" element={<UserCarChart />} />
             <Route path="/subscription" element={<Subscription />} />
             <Route path="welcomeBox" element={<WelcomeBox />} />
           </Route>

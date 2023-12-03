@@ -5,18 +5,22 @@ import "chart.js/auto";
 import LoadingComponent from "./LoadingComponent";
 import { fetchFirstRide } from "../reducers/carSlice";
 import store from "../store/store";
+import { useParams } from "react-router-dom"; // Import useParams
 
 const UserCarChart = () => {
   const dispatch = useDispatch();
+  const { carId } = useParams();
   const firstRideData = useSelector((state) => state.cars.firstRide);
   const chartsRef = useRef({});
 
   useEffect(() => {
-    dispatch(fetchFirstRide());
-  }, [dispatch]);
+    if (carId) {
+      dispatch(fetchFirstRide(carId)); // Pass the carId to the fetchFirstRide action
+    }
+  }, [dispatch, carId]); // Add carId as a dependency
 
   useEffect(() => {
-    console.log('Redux State:', store.getState());
+    console.log("Redux State:", store.getState());
     if (firstRideData) {
       Chart.register(...registerables);
 
@@ -78,7 +82,7 @@ const UserCarChart = () => {
   if (!firstRideData) {
     return <LoadingComponent />;
   }
-
+  
   return (
     <div className="UserCarChart">
       <canvas id="speedChart" aria-label="Speed Chart"></canvas>
