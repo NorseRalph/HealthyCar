@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { addCarAction } from "../actions/carActions"; // Replace with your actual action
+import { addCar } from "../actions/carActions"; // Replace with your actual action
 
 const CarRegistrationForm = () => {
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ const CarRegistrationForm = () => {
     },
     validationSchema: carSchema,
     onSubmit: (values) => {
-      dispatch(addCarAction(values));
+      dispatch(addCar(values));
       // Additional logic after submission, like redirecting
     },
   });
