@@ -3,95 +3,67 @@ import { useDispatch, useSelector } from "react-redux";
 import { Chart, registerables } from "chart.js";
 import "chart.js/auto";
 import LoadingComponent from "./LoadingComponent";
-import { fetchAllRideData } from "../reducers/carSlice";
-import store from "../store/store";
-import { useNavigate, useParams } from "react-router-dom"; // Import useParams
+import { useParams } from "react-router-dom";
+import { fetchLatestRideByCarId } from "../reducers/carSlice";
 
 const UserCarChart = () => {
   const dispatch = useDispatch();
   const { carId } = useParams();
-  const firstRideData = useSelector((state) => state.cars.fetchAllRideData);
+  const { carRide, status, error } = useSelector((state) => state.cars);
   const chartsRef = useRef({});
 
   useEffect(() => {
     if (carId) {
-      dispatch(fetchAllRideData(carId)); // Pass the carId to the fetchAllRideData action
+      dispatch(fetchLatestRideByCarId(carId));
     }
-  }, [dispatch, carId]); // Add carId as a dependency
+  }, [dispatch, carId]);
 
   useEffect(() => {
-    console.log("Redux State:", store.getState());
-    if (firstRideData) {
+    console.log('Car ride data for charts:', carRide); // Check the carRide data
+    if (carRide && carRide.readings && status === 'succeeded' && !error) {
       Chart.register(...registerables);
 
       const createLineChart = (canvasId, label, data, borderColor) => {
         if (chartsRef.current[canvasId]) {
+          console.log(`Destroying chart: ${canvasId}`); // Check if charts are being destroyed
           chartsRef.current[canvasId].destroy();
         }
         const chartCanvas = document.getElementById(canvasId).getContext("2d");
         chartsRef.current[canvasId] = new Chart(chartCanvas, {
           type: "line",
           data: {
-            labels: firstRideData.time,
-            datasets: [
-              {
-                label,
-                data,
-                borderColor,
-                tension: 0.1,
-              },
-            ],
+            labels: carRide.readings.map((_, index) => `Reading ${index + 1}`),
+            datasets: [{ label, data, borderColor, tension: 0.1 }],
           },
           options: {},
         });
+        console.log(`Chart created: ${canvasId}`); // Confirm chart creation
       };
 
-      createLineChart(
-        "speedChart",
-        "Speed",
-        firstRideData.speed,
-        "rgb(75, 192, 192)"
-      );
-      createLineChart("rpmChart", "RPM", firstRideData.rpm, "rgb(192, 75, 75)");
-      createLineChart(
-        "fuelChart",
-        "Fuel Consumption",
-        firstRideData.fuelConsumption,
-        "rgb(75, 75, 192)"
-      );
-      createLineChart(
-        "airTempChart",
-        "Air Temperature",
-        firstRideData.airTemperature,
-        "rgb(192, 192, 75)"
-      );
-      createLineChart(
-        "engineTempChart",
-        "Engine Temperature",
-        firstRideData.engineTemperature,
-        "rgb(75, 192, 75)"
-      );
-
-      const currentChartsRef = chartsRef.current;
-      return () => {
-        Object.values(currentChartsRef).forEach((chart) => chart?.destroy());
-      };
+      // Create charts for each data type
+      createLineChart("speedChart", "Speed", carRide.readings.map(reading => reading.speed), "rgb(75, 192, 192)");
+      createLineChart("rpmChart", "RPM", carRide.readings.map(reading => reading.rpm), "rgb(192, 75, 75)");
+      createLineChart("fuelChart", "Fuel Consumption", carRide.readings.map(reading => reading.fuelConsumption), "rgb(75, 75, 192)");
+      createLineChart("airTempChart", "Air Temperature", carRide.readings.map(reading => reading.airTemperature), "rgb(192, 192, 75)");
+      createLineChart("engineTempChart", "Engine Temperature", carRide.readings.map(reading => reading.engineTemperature), "rgb(75, 192, 75)");
     }
-  }, [firstRideData]);
+  }, [carRide, status, error]); // Ensuring that this effect runs only when these dependencies change
 
-  if (!firstRideData) {
+  if (status === 'loading') {
     return <LoadingComponent />;
+  }
+
+  if (error) {
+    return <div>Error loading ride data: {error}</div>;
   }
 
   return (
     <div className="UserCarChart">
-      <canvas id="speedChart" aria-label="Speed Chart"></canvas>
-      <canvas id="rpmChart" aria-label="RPM Chart"></canvas>
-      <canvas id="fuelChart" aria-label="Fuel Consumption Chart"></canvas>
-      <canvas id="airTempChart" aria-label="Air Temperature Chart"></canvas>
-      <canvas
-        id="engineTempChart"
-        aria-label="Engine Temperature Chart"></canvas>
+      <canvas id="speedChart" aria-label="Speed Chart" width="400" height="400"></canvas>
+      <canvas id="rpmChart" aria-label="RPM Chart" width="400" height="400"></canvas>
+      <canvas id="fuelChart" aria-label="Fuel Consumption Chart" width="400" height="400"></canvas>
+      <canvas id="airTempChart" aria-label="Air Temperature Chart" width="400" height="400"></canvas>
+      <canvas id="engineTempChart" aria-label="Engine Temperature Chart" width="400" height="400"></canvas>
     </div>
   );
 };

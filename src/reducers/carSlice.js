@@ -66,51 +66,48 @@ export const fetchUserCarsByOwnerId = createAsyncThunk(
   }
 );
 
-export const fetchAllRideData = createAsyncThunk(
-  "rides/fetchAllRideData",
+export const fetchLatestRideByCarId = createAsyncThunk(
+  "rides/fetchLatestRideByCarId",
   async (carId, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${baseUrl}rides/car/${carId}`);
+      const url = `http://localhost:8080/rides/latest/${carId}`;
+      const response = await fetch(url);
 
       if (!response.ok) {
         throw new Error("Server responded with an error!");
       }
 
-      const rides = await response.json();
+      const rideData = await response.json();
 
-      // If there are no rides, return early
-      if (rides.length === 0) {
-        return rejectWithValue("No rides found for this car");
-      }
+      // Convert the date array to an ISO string
+      const isoDate = new Date(
+        rideData.date[0],      // year
+        rideData.date[1] - 1,  // month index (0-based)
+        rideData.date[2],      // day
+        rideData.date[3],      // hour
+        rideData.date[4],      // minute
+        rideData.date[5]       // second
+      ).toISOString();
 
-      // Map all rides to their respective reading data
-      const mappedRides = rides.map((ride) => ({
-        id: ride.id,
-        date: ride.date, // Assuming date is an array [yyyy, mm, dd, HH, MM, ss]
-        readings: ride.readings.map((reading, index) => ({
-          time: `Reading ${index + 1}`,
-          speed: reading.speed,
-          rpm: reading.rpm,
-          fuelConsumption: reading.fuelConsumption,
-          airTemperature: reading.airTemperature,
-          engineTemperature: reading.engineTemperature,
-        })),
-      }));
-
-      return mappedRides;
+      // Return the ride data with the date as an ISO string
+      return {
+        ...rideData,
+        date: isoDate, // Store the date as a string
+      };
     } catch (error) {
-      console.error("Fetch all ride data failed", error);
+      console.error("Fetch latest ride by car ID failed", error);
       return rejectWithValue(error.message || "Unknown server error");
     }
   }
 );
 
+
 const carSlice = createSlice({
   name: "cars",
   initialState: {
     cars: [],
-    carDetails: null, // Store details for a single car
-    carRides: [], // Store car rides
+    carDetails: null,
+    carRide: null, // <-- Change this to a single object rather than an array
     status: "idle",
     error: null,
   },
@@ -141,19 +138,25 @@ const carSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message;
       })
-      .addCase(fetchAllRideData.pending, (state) => {
+      .addCase(fetchLatestRideByCarId.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(fetchAllRideData.fulfilled, (state, action) => {
+      .addCase(fetchLatestRideByCarId.fulfilled, (state, action) => {
         state.status = "succeeded";
-        // Make sure to set the firstRide state correctly
-        state.fetchAllRideData = action.payload;
+        // Now we store a single ride object, not an array
+        state.carRide = action.payload;
       })
-      .addCase(fetchAllRideData.rejected, (state, action) => {
+      .addCase(fetchLatestRideByCarId.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });
   },
 });
 
+// Only reducers are typically exported from the slice, not the async thunks.
+// Async thunk actions are exported from where they are created.
 export default carSlice.reducer;
+
+// If you have any reducers in this slice, export them like this:
+// export const { yourReducer } = carSlice.actions;
+
