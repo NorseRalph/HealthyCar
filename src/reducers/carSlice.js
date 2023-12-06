@@ -16,7 +16,7 @@ export const addCar = createAsyncThunk(
 
       // Use the correct endpoint as per your API specification in Postman
       const response = await axios.post(
-        `http://localhost:8080/cars/add`,
+        `http://localhost:8080/cars/save`,
         completeCarData,
         {
           headers: {

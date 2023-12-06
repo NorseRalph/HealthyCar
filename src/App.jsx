@@ -11,6 +11,17 @@ const App = () => {
   const [hideComponents, setHideComponents] = useState(false);
   const location = useLocation();
 
+  const matchPath = (pattern, path) => {
+    const patternParts = pattern.split("/");
+    const pathParts = path.split("/");
+    if (patternParts.length !== pathParts.length) {
+      return false;
+    }
+    return patternParts.every((part, index) => part.startsWith(":") || part === pathParts[index]);
+  };
+
+
+
   useEffect(() => {
     // Hide components for specific routes
     setHideComponents(
@@ -22,9 +33,9 @@ const App = () => {
         "/my-cars",
         "/my-profile",
         "/add-car",
-        "/user-car-chart/:carId",
         "/welcomeBox",
-      ].includes(location.pathname)
+        "/user-car-chart/:carId",
+      ].some(path => matchPath(path, location.pathname))
     );
   }, [location.pathname]);
 

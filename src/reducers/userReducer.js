@@ -14,7 +14,7 @@ export const loginUserAction = createAsyncThunk(
 
       // Save the token and userId to localStorage or any other persistent storage you prefer
       localStorage.setItem("token", token);
-      localStorage.setItem("userId", id)
+      localStorage.setItem("userId", id);
 
       // Optionally save userId to cookies if needed
       document.cookie = `userId=${id}; path=/; max-age=86400;`; // Expires after 1 day
@@ -33,21 +33,43 @@ export const loginUserAction = createAsyncThunk(
   }
 );
 
-
+// New async thunk for fetching user details
+export const fetchUserDetails = createAsyncThunk(
+  "user/fetchDetails",
+  async (userId, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${baseUrl}users/${userId}`);
+      return response.data; // Assuming the response data is the user object
+    } catch (error) {
+      if (error.response) {
+        // Handle a response error status code
+        return rejectWithValue(
+          error.response.data.message || "Failed to fetch user details"
+        );
+      } else {
+        // Handle other errors like network issues
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
 
 export const registerUserAction = createAsyncThunk(
   "user/register",
   async (user, { rejectWithValue }) => {
     try {
-      // Update URL if needed to match your backend
+      // The endpoint might be '/users/save' or '/users/add' depending on your backend configuration
       const response = await axios.post(
-        `${baseUrl}/users/add`,
+        `${baseUrl}users/save`, 
         {
+          id: user.id, // Include the user ID, if this is an update operation
           firstName: user.firstName,
           lastName: user.lastName,
           email: user.email,
           password: user.password,
-          isFO: user.isFleetOwner, // Assuming isFleetOwner is a boolean, change the key to match the backend's expectation
+          carCount: user.carCount, // Assuming you want to include this
+          isAdmin: user.isAdmin, // Assuming you want to include this
+          // Add other user fields here as required
         },
         {
           headers: {
@@ -57,26 +79,20 @@ export const registerUserAction = createAsyncThunk(
       );
 
       const { id } = response.data;
-      // Set the cookie with the user ID
-      const cookieExpiryDate = new Date();
-      cookieExpiryDate.setDate(cookieExpiryDate.getDate() + 1); // Cookie expires after 1 day
-      document.cookie = `userId=${id}; path=/; expires=${cookieExpiryDate.toUTCString()}; Secure; HttpOnly`;
+      // You might want to set cookies or local storage here, similar to the login action
 
-      return response.data; // You might want to return a specific part of the response
+      return response.data; // You can modify this to return specific parts of the response
     } catch (error) {
-      // Log the error to the console for debugging
-      console.error("Registration Error:", error);
-
-      // Handle the error as per your application's needs
+      // Error handling
       if (error.response && error.response.data) {
         return rejectWithValue(error.response.data);
       } else {
-        // Handling unexpected errors (like network issues)
         return rejectWithValue({ message: "Unexpected error occurred" });
       }
     }
   }
 );
+
 
 export const logoutAction = createAsyncThunk(
   "user/logout",
@@ -144,13 +160,21 @@ const userSlice = createSlice({
       state.loading = false;
       state.userData = null;
     },
+    [fetchUserDetails.pending]: (state) => {
+      state.loading = true;
+    },
+    [fetchUserDetails.fulfilled]: (state, action) => {
+      state.userData = action.payload;
+      state.loading = false;
+      state.error = null;
+    },
+    [fetchUserDetails.rejected]: (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    },
   },
 });
 
 // Export actions and reducer
 export const { logout } = userSlice.actions;
 export default userSlice.reducer;
-
-
-
-

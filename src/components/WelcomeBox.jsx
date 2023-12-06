@@ -1,9 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
+import LoadingComponent from "./LoadingComponent";
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUserDetails } from "../reducers/userReducer";
 
 const WelcomeBox = () => {
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user.userData);
+  const error = useSelector(state => state.user.error);
+
+  useEffect(() => {
+    const userId = localStorage.getItem("userId"); // Or fetch from a suitable source
+    if (userId) {
+      dispatch(fetchUserDetails(userId)); // Dispatch action to load user details
+    }
+  }, [dispatch]);
+
+  if (error) {
+    return <LoadingComponent />;
+  }
+
   return (
     <div className="welcome-box">
-      <h1 className="welcome-box__title">Welcome, Username!</h1>
+      <h1 className="welcome-box__title">Welcome, {user.firstName}</h1>
       <p className="welcome-box__message">
         Congratulations! Your registration was successful, and we're thrilled to
         have you on board. Here's what you can do next:

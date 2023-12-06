@@ -14,6 +14,8 @@ import MyCars from "./components/MyCars";
 import Subscription from "./components/Subscription";
 import UserCarChart from "./components/UserCarChart";
 import WelcomeBox from "./components/WelcomeBox";
+import RequireAuth from "./components/RequireAuth";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>

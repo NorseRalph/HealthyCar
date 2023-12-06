@@ -57,7 +57,7 @@ const Login = () => {
       <footer className="login__footer">
         <p>
           If you don't have an account, please register{" "}
-          <Link className="link" to="/register">
+          <Link className="link" to="/subscription">
             here
           </Link>
           .
