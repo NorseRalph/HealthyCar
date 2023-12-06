@@ -1,30 +1,30 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { fetchUserDetails } from "../reducers/userReducer"; // Import fetchUserDetails
 import profilePic from "../icons/profile.svg"; // Path to the profile picture image
 import LoadingComponent from "./LoadingComponent";
+import { Link } from "react-router-dom";
 
 const MyProfile = () => {
-    const dispatch = useDispatch();
-    const user = useSelector(state => state.user.userData);
-    const isLoading = useSelector(state => state.user.isLoading);
-    const error = useSelector(state => state.user.error);
-  
-    useEffect(() => {
-      const userId = localStorage.getItem("userId"); // Or fetch from a suitable source
-      if (userId) {
-        dispatch(fetchUserDetails(userId)); // Dispatch action to load user details
-      }
-    }, [dispatch]);
-  
-    if (isLoading) {
-      return <div>Loading profile...</div>;
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.userData);
+  const isLoading = useSelector((state) => state.user.isLoading);
+  const error = useSelector((state) => state.user.error);
+
+  useEffect(() => {
+    const userId = localStorage.getItem("userId"); // Or fetch from a suitable source
+    if (userId) {
+      dispatch(fetchUserDetails(userId)); // Dispatch action to load user details
     }
-  
-    if (error) {
-      return <LoadingComponent />;
-    }
-  
+  }, [dispatch]);
+
+  if (isLoading) {
+    return <div>Loading profile...</div>;
+  }
+
+  if (error) {
+    return <LoadingComponent />;
+  }
 
   return (
     <div className="my-profile">
@@ -35,7 +35,9 @@ const MyProfile = () => {
         <div className="my-profile__details">
           <div className="my-profile__detail">
             <span className="my-profile__detail-label">Name:</span>
-            <span className="my-profile__detail-value">{user.firstName} {user.lastName}</span>
+            <span className="my-profile__detail-value">
+              {user.firstName} {user.lastName}
+            </span>
           </div>
           <div className="my-profile__detail">
             <span className="my-profile__detail-label">Email address</span>
@@ -49,6 +51,9 @@ const MyProfile = () => {
             <span className="my-profile__detail-label">Number of Cars</span>
             <span className="my-profile__detail-value">{user.carCount}</span>
           </div>
+          <Link to="/change-password" className="my-profile__change-password">
+            Change Password
+          </Link>
         </div>
       </div>
     </div>

@@ -1,7 +1,6 @@
 // App.jsx
 import Header from "./components/Header";
 import Info from "./components/Info";
-import Cards from "./components/Cards";
 import "./sass/main.scss";
 import Footer from "./components/Footer";
 import { Outlet, useLocation } from "react-router"; // import Outlet and useLocation from react-router
@@ -35,6 +34,7 @@ const App = () => {
         "/add-car",
         "/welcomeBox",
         "/user-car-chart/:carId",
+        "/forgetPassword",
       ].some(path => matchPath(path, location.pathname))
     );
   }, [location.pathname]);

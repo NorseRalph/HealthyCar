@@ -1,0 +1,32 @@
+// Popup.scss
+@keyframes slideInFromBottomRight {
+  0% {
+    transform: translateX(100%) translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0) translateY(0);
+    opacity: 1;
+  }
+}
+
+.Popup {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background-color: white;
+  color: $color-primary;
+  font-size: 3rem;
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  box-shadow: 0 4px 0.8rem rgba(0, 0, 0, 0.1);
+  z-index: 1000; // Ensures the popup is above other elements
+  animation: slideInFromBottomRight 0.1s ease-out forwards;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 30rem;
+  word-wrap: break-word;
+
+  // Optional: Add a close button or timeout to hide the popup
+}

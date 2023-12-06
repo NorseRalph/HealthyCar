@@ -15,6 +15,7 @@ import Subscription from "./components/Subscription";
 import UserCarChart from "./components/UserCarChart";
 import WelcomeBox from "./components/WelcomeBox";
 import RequireAuth from "./components/RequireAuth";
+import ForgetPassword from "./components/ForgetPassword";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -33,6 +34,7 @@ root.render(
             <Route path="/user-car-chart/:carId" element={<UserCarChart />} />
             <Route path="/subscription" element={<Subscription />} />
             <Route path="welcomeBox" element={<WelcomeBox />} />
+            <Route path="/forgetPassword" element={<ForgetPassword />} />
           </Route>
         </Routes>
       </BrowserRouter>

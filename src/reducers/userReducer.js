@@ -60,7 +60,7 @@ export const registerUserAction = createAsyncThunk(
     try {
       // The endpoint might be '/users/save' or '/users/add' depending on your backend configuration
       const response = await axios.post(
-        `${baseUrl}users/save`, 
+        `${baseUrl}users/save`,
         {
           id: user.id, // Include the user ID, if this is an update operation
           firstName: user.firstName,
@@ -93,7 +93,6 @@ export const registerUserAction = createAsyncThunk(
   }
 );
 
-
 export const logoutAction = createAsyncThunk(
   "user/logout",
   async (_, { rejectWithValue }) => {
@@ -117,6 +116,25 @@ export const logoutAction = createAsyncThunk(
         return rejectWithValue(error.response.data);
       } else {
         return rejectWithValue("An error occurred during logout");
+      }
+    }
+  }
+);
+
+// Async thunk for resetting password
+export const resetPasswordAction = createAsyncThunk(
+  "user/resetPassword",
+  async (email, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(`${baseUrl}users/reset`, { email });
+      return response.data; // Assuming success message is in response data
+    } catch (error) {
+      if (error.response) {
+        return rejectWithValue(
+          error.response.data.message || "Reset password failed"
+        );
+      } else {
+        return rejectWithValue(error.message);
       }
     }
   }
@@ -171,6 +189,22 @@ const userSlice = createSlice({
     [fetchUserDetails.rejected]: (state, action) => {
       state.error = action.payload;
       state.loading = false;
+    },
+
+    [resetPasswordAction.pending]: (state) => {
+      // Set loading state to true when the resetPasswordAction is pending
+      state.loading = true;
+    },
+    [resetPasswordAction.fulfilled]: (state, action) => {
+      // Handle the fulfilled state, maybe you want to set some success message in the state
+      state.loading = false;
+      state.error = null;
+      state.resetPasswordStatus = action.payload; // You might want to store the reset status
+    },
+    [resetPasswordAction.rejected]: (state, action) => {
+      // Handle the rejected state, setting the error message in the state
+      state.loading = false;
+      state.error = action.payload;
     },
   },
 });

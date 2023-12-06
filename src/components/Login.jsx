@@ -62,6 +62,9 @@ const Login = () => {
           </Link>
           .
         </p>
+        <p className="login__footer">If you forgot your password click  <Link className="link" to="/forgetPassword">
+            here
+          </Link></p>
       </footer>
     </div>
   );
