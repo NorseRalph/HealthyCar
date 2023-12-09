@@ -26,6 +26,16 @@ const MyProfile = () => {
     return <LoadingComponent />;
   }
 
+  console.log(user.isFO);
+  // Determine the subscription type based on user.info
+  var subscriptionType = "";
+  if (user.isFO) {
+    subscriptionType = "Fleet Owner";
+  } else if (user.isAdmin) {
+    subscriptionType = "Admin";
+  } else {
+    subscriptionType = "Regular";
+  }
   return (
     <div className="my-profile">
       <div className="my-profile__card">
@@ -45,7 +55,7 @@ const MyProfile = () => {
           </div>
           <div className="my-profile__detail">
             <span className="my-profile__detail-label">Subscription type</span>
-            <span className="my-profile__detail-value">Regular</span>
+            <span className="my-profile__detail-value">{subscriptionType}</span>
           </div>
           <div className="my-profile__detail">
             <span className="my-profile__detail-label">Number of Cars</span>
