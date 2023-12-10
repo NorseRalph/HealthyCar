@@ -4,9 +4,16 @@
   grid-gap: 1rem; // Space between the charts
   justify-content: center;
   align-items: center;
-  margin: 4% auto;
-  max-width: 30%; // Adjust as needed
-  // For smaller screens, you might want to adjust the grid layout
+  margin: 2% auto;
+  max-width: 30%; // Adjusted for better layout
+
+  .header {
+    grid-column: 1 / -1; // Span the header across all columns
+    color: $color-primary;
+    font-size: 2.4rem;
+    text-align: center;
+  }
+
   @media (max-width: 768px) {
     grid-template-columns: 1fr; // One column for smaller screens
   }

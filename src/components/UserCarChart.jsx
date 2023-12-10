@@ -5,6 +5,7 @@ import "chart.js/auto";
 import LoadingComponent from "./LoadingComponent";
 import { useParams } from "react-router-dom";
 import { fetchLatestRideByCarId } from "../reducers/carSlice";
+import ReportGauge from "./ReportGauge";
 
 const UserCarChart = () => {
   const dispatch = useDispatch();
@@ -59,11 +60,14 @@ const UserCarChart = () => {
 
   return (
     <div className="UserCarChart">
+      <h1 className="header">Latest Rides</h1>
       <canvas id="speedChart" aria-label="Speed Chart" width="400" height="400"></canvas>
       <canvas id="rpmChart" aria-label="RPM Chart" width="400" height="400"></canvas>
       <canvas id="fuelChart" aria-label="Fuel Consumption Chart" width="400" height="400"></canvas>
       <canvas id="airTempChart" aria-label="Air Temperature Chart" width="400" height="400"></canvas>
       <canvas id="engineTempChart" aria-label="Engine Temperature Chart" width="400" height="400"></canvas>
+      <h1 className="header">Analyzed Rides</h1>
+      <ReportGauge />
     </div>
   );
 };

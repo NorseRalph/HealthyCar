@@ -1,0 +1,23 @@
+.report-gauge {
+  display: flex;
+  flex-wrap: wrap;
+
+  &__container {
+    flex: 1 0 100%;
+    padding: 1rem;
+
+    canvas {
+      flex: 1 1 auto;
+      width: 100%;
+    }
+  }
+
+  &__header {
+    font-size: 2.4rem;
+  }
+
+  &__canvas {
+    width: 100%; // Maintains aspect ratio and fills the container width
+    height: 1rem;
+  }
+}
