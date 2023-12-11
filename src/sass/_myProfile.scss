@@ -57,8 +57,19 @@
   }
 }
 
+/* Make the "Change Password" button responsive */
 .my-profile__change-password {
-  text-align: center;
-  border: none;
-  outline: none;
+  justify-content: center;
+  align-self: center;
+  font-size: 1.6rem;
+  margin-top: 1rem;
+  border: .1rem solid $color-primary;
+  border-radius: 0.5rem;
+  padding: 1rem 2rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color-primary;
+    color: white;
+  }
 }

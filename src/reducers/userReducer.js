@@ -121,6 +121,29 @@ export const logoutAction = createAsyncThunk(
   }
 );
 
+export const saveUserAction = createAsyncThunk(
+  "user/save",
+  async (userDetails, { rejectWithValue }) => {
+    try {
+      // The endpoint should be the same as the one used for registering users
+      const response = await axios.post(`${baseUrl}users/save`, userDetails, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // Assuming you use Bearer token for authorization
+        },
+      });
+
+      return response.data; // Modify this based on your backend's response structure
+    } catch (error) {
+      if (error.response) {
+        return rejectWithValue(error.response.data);
+      } else {
+        return rejectWithValue("An error occurred while saving user data");
+      }
+    }
+  }
+);
+
 // Async thunk for resetting password
 export const resetPasswordAction = createAsyncThunk(
   "user/resetPassword",
@@ -147,6 +170,7 @@ const userSlice = createSlice({
     userData: null,
     loading: false,
     error: null,
+    saveUserStatus: null,
   },
   extraReducers: {
     [loginUserAction.pending]: (state) => {
@@ -203,6 +227,18 @@ const userSlice = createSlice({
     },
     [resetPasswordAction.rejected]: (state, action) => {
       // Handle the rejected state, setting the error message in the state
+      state.loading = false;
+      state.error = action.payload;
+    },
+    [saveUserAction.pending]: (state) => {
+      state.loading = true;
+    },
+    [saveUserAction.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.error = null;
+      state.saveUserStatus = action.payload;
+    },
+    [saveUserAction.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },

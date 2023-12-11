@@ -1,15 +1,16 @@
 .car-registration {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  justify-content: flex-start;
-  padding: 2rem;
+  flex-direction: column;
   border-radius: 4.5rem;
   background-color: $color-registration;
   max-width: 55rem;
   width: 100%;
+  margin-left: 48rem;
+  margin-top: 3%;
   min-height: 50rem;
-  margin: 10% auto;
+  margin-bottom: 5%;
   font-family: inherit;
   color: #fff; // Assuming you want all text in white
 
@@ -33,6 +34,7 @@
     height: 3.9rem;
     border: 1px solid #ccc; // Border added for clarity
     outline: none;
+    padding: 15%;
     font-size: 1.6rem;
     font-family: inherit;
     border-radius: 2rem;

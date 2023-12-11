@@ -35,6 +35,7 @@ const App = () => {
         "/welcomeBox",
         "/user-car-chart/:carId",
         "/forgetPassword",
+        "/change-password"
       ].some(path => matchPath(path, location.pathname))
     );
   }, [location.pathname]);
