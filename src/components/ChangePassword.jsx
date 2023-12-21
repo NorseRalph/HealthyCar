@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { saveUserAction } from "../reducers/userReducer";
+import { changePasswordAction } from "../reducers/userReducer"; // Import changePasswordAction
 import Popup from "./Popup";
 
 const ChangePassword = () => {
@@ -19,7 +19,13 @@ const ChangePassword = () => {
     // Additional validations can be added here
 
     const userId = localStorage.getItem("userId"); // Assuming you store user ID in local storage
-    dispatch(saveUserAction({ id: userId, password: newPassword }))
+    dispatch(
+      changePasswordAction({
+        userId,
+        currentPassword,
+        newPassword,
+      })
+    )
       .then(() => {
         setPopupMessage("Password successfully changed");
       })

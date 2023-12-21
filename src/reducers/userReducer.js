@@ -149,12 +149,34 @@ export const resetPasswordAction = createAsyncThunk(
   "user/resetPassword",
   async (email, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${baseUrl}users/reset`, { email });
+      const response = await axios.post(`${baseUrl}users/password/reset`, { email });
       return response.data; // Assuming success message is in response data
     } catch (error) {
       if (error.response) {
         return rejectWithValue(
           error.response.data.message || "Reset password failed"
+        );
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+// Async thunk for changing password
+export const changePasswordAction = createAsyncThunk(
+  "user/changePassword",
+  async (passwordChangeData, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${baseUrl}users/passwordChange`,
+        passwordChangeData
+      );
+      return response.data; // Assuming success message is in response data
+    } catch (error) {
+      if (error.response) {
+        return rejectWithValue(
+          error.response.data.message || "Password change failed"
         );
       } else {
         return rejectWithValue(error.message);
@@ -171,6 +193,7 @@ const userSlice = createSlice({
     loading: false,
     error: null,
     saveUserStatus: null,
+    changePasswordStatus: null,
   },
   extraReducers: {
     [loginUserAction.pending]: (state) => {
@@ -241,6 +264,22 @@ const userSlice = createSlice({
     [saveUserAction.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload;
+    },
+    [changePasswordAction.pending]: (state) => {
+      // Set loading state or any other relevant state change
+      state.loading = true;
+      state.changePasswordStatus = null;
+    },
+    [changePasswordAction.fulfilled]: (state, action) => {
+      // Handle successful password change
+      state.loading = false;
+      state.changePasswordStatus = "success"; // Update the status or store relevant data from action.payload
+    },
+    [changePasswordAction.rejected]: (state, action) => {
+      // Handle failed password change
+      state.loading = false;
+      state.error = action.payload; // Store the error message
+      state.changePasswordStatus = "failed"; // Update the status
     },
   },
 });
